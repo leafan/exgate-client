@@ -1,6 +1,6 @@
-package trade
+package trade_strategy
 
-import "exgate-client/utils"
+import "golang/utils"
 
 // MACD strategy.
 func MacdStrategy(asset Asset) []Action {

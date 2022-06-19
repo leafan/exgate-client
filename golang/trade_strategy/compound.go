@@ -1,4 +1,4 @@
-package trade
+package trade_strategy
 
 // MACD and RSI strategy.
 func MacdAndRsiStrategy(asset Asset, fastN, slowN, singnal int64) []Action {

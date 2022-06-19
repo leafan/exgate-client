@@ -1,4 +1,4 @@
-package trade
+package trade_strategy
 
 import (
 	"time"

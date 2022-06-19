@@ -1,6 +1,6 @@
-package trade
+package trade_strategy
 
-import "exgate-client/utils"
+import "golang/utils"
 
 // RSI strategy. Sells above sell at, buys below buy at.
 func RsiStrategy(asset Asset, sellAt, buyAt float64, period int64) []Action {

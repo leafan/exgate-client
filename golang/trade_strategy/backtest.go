@@ -1,4 +1,4 @@
-package trade
+package trade_strategy
 
 func ApplyActions(prices []float64, actions []Action) []float64 {
 	gains := make([]float64, len(actions))

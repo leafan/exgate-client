@@ -1,6 +1,5 @@
+github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
-github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
-github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/iamjinlei/go-tart v0.0.0-20210623083942-ceb57e98706b h1:KfgXYALdIQOs1IQNUDzwBu3SM+3eNUR3T0C6sl626fU=
 github.com/iamjinlei/go-tart v0.0.0-20210623083942-ceb57e98706b/go.mod h1:30Qg94n/KqLWfDL2OCY77Z1uNrY5DK9Oe0DyftSn8IU=
 github.com/markcheno/go-talib v0.0.0-20190307022042-cd53a9264d70 h1:+iG37/Aw61Oc+ZJ4DSxQF2+K0e4ZiMidI7ytWuW4/cI=
