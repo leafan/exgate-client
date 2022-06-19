@@ -1,0 +1,452 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "api/exgate/v1/futures/indicator/indicator.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "Indicators"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/fexgate/v1/{exchange}/kline/historical/madc": {
+      "get": {
+        "operationId": "Indicators_GetHistoricalMADC",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/indicatorGetMADCResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "exchange",
+            "description": "required，交易所名称",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "symbol",
+            "description": "required，交易对名称.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "interval",
+            "description": "required，时间周期，可选值：1min, 5min, 15min, 30min, 1hour, 1day.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "start_time",
+            "description": "required，开始时间戳.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "end_time",
+            "description": "required，结束时间戳.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "periodFast",
+            "description": "required，fast信号周期.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "periodSlow",
+            "description": "required，slow信号周期.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "signal",
+            "description": "required，signal信号周期.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
+            "description": "required，返回数据条数.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "isProxy",
+            "description": "required，是否使用代理,走http，或者local，默认为false.",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "tags": [
+          "Indicators"
+        ]
+      }
+    },
+    "/fexgate/v1/{exchange}/kline/historical/rsi": {
+      "get": {
+        "operationId": "Indicators_GetHistoricalRSI",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/indicatorGetRSIResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "exchange",
+            "description": "required，交易所名称",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "symbol",
+            "description": "required，交易对名称.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "interval",
+            "description": "required，时间周期，可选值：1min, 5min, 15min, 30min, 1hour, 1day.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "start_time",
+            "description": "required，开始时间戳.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "end_time",
+            "description": "required，结束时间戳.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "period",
+            "description": "required，信号周期.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
+            "description": "required，返回数据条数.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "isProxy",
+            "description": "required，是否使用代理,走http，或者local，默认为false.",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "tags": [
+          "Indicators"
+        ]
+      }
+    },
+    "/fexgate/v1/{exchange}/kline/madc": {
+      "get": {
+        "operationId": "Indicators_GetRecentMADC",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/indicatorGetMADCResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "exchange",
+            "description": "required，交易所名称",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "symbol",
+            "description": "required，交易对名称.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "interval",
+            "description": "required，时间周期，可选值：1min, 5min, 15min, 30min, 1hour, 1day.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "periodFast",
+            "description": "required，快速移动平均线周期.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "periodSlow",
+            "description": "required，慢速移动平均线周期.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "signal",
+            "description": "required，信号周期.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
+            "description": "required，返回数据条数.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "isProxy",
+            "description": "required，是否使用代理,走http，或者local，默认为false.",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "tags": [
+          "Indicators"
+        ]
+      }
+    },
+    "/fexgate/v1/{exchange}/kline/rsi": {
+      "get": {
+        "operationId": "Indicators_GetRecentRSI",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/indicatorGetRSIResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "exchange",
+            "description": "required，交易所名称",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "symbol",
+            "description": "required，交易对名称.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "interval",
+            "description": "required，时间周期，可选值：1min, 5min, 15min, 30min, 1hour, 1day.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "period",
+            "description": "required，信号周期.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
+            "description": "required，返回数据条数.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "isProxy",
+            "description": "required，是否使用代理,走http，或者local，默认为false.",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "tags": [
+          "Indicators"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "GetMADCResponseMACD": {
+      "type": "object",
+      "properties": {
+        "timestamp": {
+          "type": "string",
+          "format": "int64",
+          "title": "required，时间戳"
+        },
+        "madc": {
+          "type": "number",
+          "format": "double",
+          "title": "required，MADC值"
+        },
+        "signal": {
+          "type": "number",
+          "format": "double",
+          "title": "required，信号值"
+        },
+        "histogram": {
+          "type": "number",
+          "format": "double",
+          "title": "required，柱状图值"
+        }
+      }
+    },
+    "GetRSIResponseRSI": {
+      "type": "object",
+      "properties": {
+        "timestamp": {
+          "type": "string",
+          "format": "int64",
+          "title": "required，时间戳"
+        },
+        "rsi": {
+          "type": "number",
+          "format": "double",
+          "title": "required，RSI值"
+        }
+      }
+    },
+    "indicatorGetMADCResponse": {
+      "type": "object",
+      "properties": {
+        "macd": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GetMADCResponseMACD"
+          },
+          "title": "required，返回数据条数"
+        }
+      }
+    },
+    "indicatorGetRSIResponse": {
+      "type": "object",
+      "properties": {
+        "rsi": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GetRSIResponseRSI"
+          },
+          "title": "required，RSI数据"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "type_url": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,531 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "api/exgate/v1/futures/kline/kline.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "Kline"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/fexgate/v1/{exchange}/aggtrade/pull": {
+      "get": {
+        "summary": "拉取聚合交易数据，走websocket",
+        "operationId": "Kline_PullAggtrade",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/klineGetAggtradeResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "exchange",
+            "description": "交易所名称",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "symbol",
+            "description": "交易对名称.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "interval",
+            "description": "按照时间段拉取数据.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Kline"
+        ]
+      }
+    },
+    "/fexgate/v1/{exchange}/aggtrade/scanner/allkline": {
+      "get": {
+        "summary": "gen 所有交易所建立ws连接的k线数据",
+        "operationId": "Kline_AggTradeScannerAllKLine",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/klineAggtradeSannerKLineResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "exchange",
+            "description": "交易所名称",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "cron_interval",
+            "description": "调度时间间隔.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Kline"
+        ]
+      }
+    },
+    "/fexgate/v1/{exchange}/aggtrade/scanner/kline": {
+      "get": {
+        "summary": "从aggtrade中生成kline",
+        "operationId": "Kline_AggTradeScannerKLine",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/klineAggtradeSannerKLineResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "exchange",
+            "description": "交易所名称",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "symbol",
+            "description": "交易对名称.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "interval",
+            "description": "k线类型.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Kline"
+        ]
+      }
+    },
+    "/fexgate/v1/{exchange}/aggtrade/stop": {
+      "get": {
+        "summary": "停止拉取聚合交易数据",
+        "operationId": "Kline_StopPullAggtrade",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/klineStopPullAggtradeResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "exchange",
+            "description": "交易所名称",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "symbol",
+            "description": "交易对名称.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "interval",
+            "description": "按照时间段拉取数据.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Kline"
+        ]
+      }
+    },
+    "/fexgate/v1/{exchange}/exgate/kline": {
+      "get": {
+        "operationId": "Kline_GetKlineByExgate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/klineGetKlineResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "exchange",
+            "description": "required 交易所名称",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "symbol",
+            "description": "required 币种名称.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "interval",
+            "description": "required 间隔.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "startTime",
+            "description": "required 开始时间.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "endTime",
+            "description": "required 结束时间.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
+            "description": "required 数量.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "Kline"
+        ]
+      }
+    },
+    "/fexgate/v1/{exchange}/kline": {
+      "get": {
+        "operationId": "Kline_GetKline",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/klineGetKlineResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "exchange",
+            "description": "required 交易所名称",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "symbol",
+            "description": "required 币种名称.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "interval",
+            "description": "required 间隔.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "startTime",
+            "description": "required 开始时间.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "endTime",
+            "description": "required 结束时间.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
+            "description": "required 数量.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "Kline"
+        ]
+      }
+    },
+    "/fexgate/v1/{exchange}/recent": {
+      "get": {
+        "operationId": "Kline_GetTradeRecent",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/klineGetTradeRecentResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "exchange",
+            "description": "required 交易所名称",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "symbol",
+            "description": "required 币种名称.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Kline"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "GetKlineResponseKline": {
+      "type": "object",
+      "properties": {
+        "open_time": {
+          "type": "number",
+          "format": "double",
+          "title": "required 开始时间"
+        },
+        "open": {
+          "type": "string",
+          "title": "required 开盘价"
+        },
+        "high": {
+          "type": "string",
+          "title": "required 最高价"
+        },
+        "low": {
+          "type": "string",
+          "title": "required 最低价"
+        },
+        "close": {
+          "type": "string",
+          "title": "required 收盘价"
+        },
+        "volume": {
+          "type": "string",
+          "title": "required 成交量"
+        },
+        "close_time": {
+          "type": "number",
+          "format": "double",
+          "title": "required 结束时间"
+        }
+      }
+    },
+    "GetTradeRecentResponseTrade": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64",
+          "title": "required id"
+        },
+        "time": {
+          "type": "string",
+          "format": "int64",
+          "title": "required 时间戳"
+        },
+        "price": {
+          "type": "string",
+          "title": "required 价格"
+        },
+        "amount": {
+          "type": "string",
+          "format": "int64",
+          "title": "required 数量"
+        },
+        "isBuyerMaker": {
+          "type": "boolean",
+          "title": "required 买卖类型"
+        }
+      }
+    },
+    "klineAggtradeSannerKLineResp": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "title": "是否成功调用"
+        },
+        "desc": {
+          "type": "string",
+          "title": "message desc"
+        }
+      }
+    },
+    "klineGetAggtradeResponse": {
+      "type": "object",
+      "properties": {
+        "desc": {
+          "type": "string",
+          "title": "描述"
+        },
+        "status": {
+          "type": "string",
+          "title": "是否成功建立websocket链接和拉取"
+        }
+      }
+    },
+    "klineGetKlineResponse": {
+      "type": "object",
+      "properties": {
+        "kline": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GetKlineResponseKline"
+          },
+          "title": "k线数据"
+        }
+      }
+    },
+    "klineGetTradeRecentResponse": {
+      "type": "object",
+      "properties": {
+        "trade": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GetTradeRecentResponseTrade"
+          },
+          "title": "交易记录"
+        }
+      }
+    },
+    "klineStopPullAggtradeResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "title": "成功stop掉ws_conn"
+        },
+        "desc": {
+          "type": "string",
+          "title": "message desc"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "type_url": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}

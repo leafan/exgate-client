@@ -1,0 +1,212 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "api/exgate/v1/futures/trade/trade.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "FutureTrade"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/fexgate/v1/{exchange}/cancel": {
+      "delete": {
+        "operationId": "FutureTrade_FutureCancelOrder",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tradeCancelOrderResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "exchange",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "sybmol",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "orderId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "origClientOrderId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "FutureTrade"
+        ]
+      }
+    },
+    "/fexgate/v1/{exchange}/order": {
+      "post": {
+        "operationId": "FutureTrade_FuturePlaceOrder",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tradePlaceOrderResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "exchange",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "symbol": {
+                  "type": "string"
+                },
+                "side": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string",
+                  "title": "订单类型"
+                },
+                "price": {
+                  "type": "string",
+                  "title": "下单价格"
+                },
+                "amount": {
+                  "type": "string",
+                  "title": "下单数量"
+                },
+                "options": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "description": "may have part of exchange options is difference, so need this options."
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "FutureTrade"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "type_url": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "tradeCancelOrderResponse": {
+      "type": "object",
+      "properties": {
+        "cumqty": {
+          "type": "string"
+        },
+        "origqty": {
+          "type": "string"
+        },
+        "side": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "price": {
+          "type": "string"
+        }
+      }
+    },
+    "tradePlaceOrderResponse": {
+      "type": "object",
+      "properties": {
+        "clientOrderId": {
+          "type": "string"
+        },
+        "orderId": {
+          "type": "string",
+          "format": "int64"
+        },
+        "avgPrice": {
+          "type": "string"
+        },
+        "stopPrice": {
+          "type": "string"
+        },
+        "priceRate": {
+          "type": "string"
+        },
+        "priceProtect": {
+          "type": "boolean"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
