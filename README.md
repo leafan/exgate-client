@@ -6,16 +6,24 @@ English | [🇨🇳中文](README_ZH.md)
 The exchange gateway client repository, for example etc.
 
 ## 🚀 Features:
-
-- pull & push kline.
-- pull and push indictors (macd,rsi)
-- futures and spot trade
+- GenKline
+  - http,websocket,websocket_proxy
+- Indictors (macd,rsi)
+  - http,websocket
+- Trade
+  - http
+- Depth
+  - http,websocket,websocket_proxy
+- RecentTrade
+  - http,websocket,websocket_proxy
 
 
 ## 🖥 Api doc
-- [kline](python/futures/kline/kline.md)
-- [indicator](python/futures/order/trade.md)
-- [trade](python/futures/order/trade.md)
+- [GenKline](python/futures/kline/kline.md)
+- [Indictors](python/futures/order/trade.md)
+- [Trade](python/futures/order/trade.md)
+- [Depth]
+- [RecentTrade]
 
 ## ⚔️ Tested in the following Golang releases:
 
