@@ -22,9 +22,9 @@ The exchange gateway client repository, for example etc.
 - [GenKline](python/futures/kline/kline.md)
 - [Indictors](python/futures/order/trade.md)
 - [Trade](python/futures/order/trade.md)
-- [Depth]
-- [RecentTrade]
-- [Balance] (python/futures/balance/balance.md)
+- [Depth](python/futures/depth/depth.md)
+- [RecentTrade](python/futures/recent_trade/recent_trade.md)
+- [Balance](python/futures/balance/balance.md)
 
 ## ⚔️ Tested in the following Golang releases:
 
