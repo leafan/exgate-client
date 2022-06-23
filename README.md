@@ -24,6 +24,7 @@ The exchange gateway client repository, for example etc.
 - [Trade](python/futures/order/trade.md)
 - [Depth]
 - [RecentTrade]
+- [Balance] (python/futures/balance/balance.md)
 
 ## ⚔️ Tested in the following Golang releases:
 
