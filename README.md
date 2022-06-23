@@ -3,6 +3,7 @@
 English | [🇨🇳中文](README_ZH.md)
 
 ## 📖 Introduction
+The exchange gateway client repository, for example etc.
 
 ## 🚀 Features:
 
@@ -11,7 +12,7 @@ English | [🇨🇳中文](README_ZH.md)
 - futures and spot trade
 
 
-## 🖥 api doc
+## 🖥 Api doc
 - [kline](python/futures/kline/kline.md)
 - [indicator](python/futures/order/trade.md)
 - [trade](python/futures/order/trade.md)

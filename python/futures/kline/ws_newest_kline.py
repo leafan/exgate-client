@@ -6,8 +6,9 @@ import json
 import time
 import threading
 import sys
+domain = "ws://exgate.leafan.cc/api/"
 
-url = "ws://127.0.0.1:8000/ws_proxy_kline?symbol=btcusdt&exchange=fbinance&interval=5m&isProxy=true"
+url = domain+"ws_proxy_kline?symbol=btcusdt&exchange=fbinance&interval=5m&isProxy=true"
 # establish a websocket connection
 
 

@@ -19,6 +19,90 @@ headingLevel: 2
 
 <h1 id="api-exgate-v1-futures-trade-trade-proto-futuretrade">FutureTrade</h1>
 
+## FutureTrade_FutureBalance
+
+<a id="opIdFutureTrade_FutureBalance"></a>
+
+> Code samples
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+r = requests.get('/fexgate/v1/{exchange}/balance', headers = headers)
+
+print(r.json())
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "/fexgate/v1/{exchange}/balance", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+`GET /fexgate/v1/{exchange}/balance`
+
+<h3 id="futuretrade_futurebalance-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|exchange|path|string|true|required 交易所名称|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "balances": [
+    {
+      "accountAlias": "string",
+      "asset": "string",
+      "balance": "string",
+      "crossWalletBalance": "string",
+      "crossUnPnl": "string",
+      "availableBalance": "string",
+      "maxWithdrawAmount": "string",
+      "marginAvailable": true,
+      "updateTime": 0
+    }
+  ]
+}
+```
+
+<h3 id="futuretrade_futurebalance-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A successful response.|[tradeBalanceResponse](#schematradebalanceresponse)|
+|default|Default|An unexpected error response.|[rpcStatus](#schemarpcstatus)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
 ## FutureTrade_FutureCancelOrder
 
 <a id="opIdFutureTrade_FutureCancelOrder"></a>
@@ -68,10 +152,10 @@ func main() {
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|exchange|path|string|true|none|
-|sybmol|query|string|false|none|
-|orderId|query|string|false|none|
-|origClientOrderId|query|string|false|none|
+|exchange|path|string|true|required 交易所名称|
+|symbol|query|string|false|required 订单ID.|
+|orderId|query|string|false|required 订单ID.|
+|origClientOrderId|query|string|false|用户订单ID.|
 
 > Example responses
 
@@ -92,6 +176,103 @@ func main() {
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A successful response.|[tradeCancelOrderResponse](#schematradecancelorderresponse)|
+|default|Default|An unexpected error response.|[rpcStatus](#schemarpcstatus)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## FutureTrade_FutureDepth
+
+<a id="opIdFutureTrade_FutureDepth"></a>
+
+> Code samples
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+r = requests.get('/fexgate/v1/{exchange}/depth', headers = headers)
+
+print(r.json())
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "/fexgate/v1/{exchange}/depth", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+`GET /fexgate/v1/{exchange}/depth`
+
+<h3 id="futuretrade_futuredepth-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|exchange|path|string|true|交易所|
+|symbol|query|string|false|币种.|
+|limit|query|string(int64)|false|数量.|
+|isLocal|query|boolean|false|本地.|
+|tolerate_interval|query|string(int64)|false|允许延迟间隔单位:秒.|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "lastUpdateId": 0,
+  "timeStamp": 0,
+  "bid_list": [
+    {
+      "bid": [
+        {
+          "price": "string",
+          "amount": "string"
+        }
+      ]
+    }
+  ],
+  "ask_list": [
+    {
+      "bid": [
+        {
+          "price": "string",
+          "amount": "string"
+        }
+      ]
+    }
+  ]
+}
+```
+
+<h3 id="futuretrade_futuredepth-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A successful response.|[tradeDepthResponse](#schematradedepthresponse)|
 |default|Default|An unexpected error response.|[rpcStatus](#schemarpcstatus)|
 
 <aside class="success">
@@ -165,7 +346,7 @@ func main() {
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|exchange|path|string|true|none|
+|exchange|path|string|true|required 交易所名称|
 |body|body|object|true|none|
 |» symbol|body|string|false|none|
 |» side|body|string|false|none|
@@ -202,7 +383,206 @@ func main() {
 This operation does not require authentication
 </aside>
 
+## FutureTrade_FutureRecentTradesList
+
+<a id="opIdFutureTrade_FutureRecentTradesList"></a>
+
+> Code samples
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+r = requests.get('/fexgate/v1/{exchange}/recent_trades', headers = headers)
+
+print(r.json())
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "/fexgate/v1/{exchange}/recent_trades", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+`GET /fexgate/v1/{exchange}/recent_trades`
+
+<h3 id="futuretrade_futurerecenttradeslist-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|exchange|path|string|true|required 交易所名称|
+|symbol|query|string|false|required 币种.|
+|limit|query|string(int64)|false|required 分页页码.|
+|isLocal|query|boolean|false|本地.|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "trades": [
+    {
+      "id": 0,
+      "price": "string",
+      "qty": "string",
+      "quoteQty": "string",
+      "time": 0,
+      "isBuyerMaker": true
+    }
+  ]
+}
+```
+
+<h3 id="futuretrade_futurerecenttradeslist-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A successful response.|[tradeRecentTradesListResponse](#schematraderecenttradeslistresponse)|
+|default|Default|An unexpected error response.|[rpcStatus](#schemarpcstatus)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
 # Schemas
+
+<h2 id="tocS_BalanceResponseBalance">BalanceResponseBalance</h2>
+<!-- backwards compatibility -->
+<a id="schemabalanceresponsebalance"></a>
+<a id="schema_BalanceResponseBalance"></a>
+<a id="tocSbalanceresponsebalance"></a>
+<a id="tocsbalanceresponsebalance"></a>
+
+```json
+{
+  "accountAlias": "string",
+  "asset": "string",
+  "balance": "string",
+  "crossWalletBalance": "string",
+  "crossUnPnl": "string",
+  "availableBalance": "string",
+  "maxWithdrawAmount": "string",
+  "marginAvailable": true,
+  "updateTime": 0
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|accountAlias|string|false|none|none|
+|asset|string|false|none|none|
+|balance|string|false|none|none|
+|crossWalletBalance|string|false|none|none|
+|crossUnPnl|string|false|none|none|
+|availableBalance|string|false|none|none|
+|maxWithdrawAmount|string|false|none|none|
+|marginAvailable|boolean|false|none|none|
+|updateTime|number(double)|false|none|none|
+
+<h2 id="tocS_DepthResponseBidList">DepthResponseBidList</h2>
+<!-- backwards compatibility -->
+<a id="schemadepthresponsebidlist"></a>
+<a id="schema_DepthResponseBidList"></a>
+<a id="tocSdepthresponsebidlist"></a>
+<a id="tocsdepthresponsebidlist"></a>
+
+```json
+{
+  "bid": [
+    {
+      "price": "string",
+      "amount": "string"
+    }
+  ]
+}
+
+```
+
+bill_list
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|bid|[[DepthResponsebills](#schemadepthresponsebills)]|false|none|none|
+
+<h2 id="tocS_DepthResponsebills">DepthResponsebills</h2>
+<!-- backwards compatibility -->
+<a id="schemadepthresponsebills"></a>
+<a id="schema_DepthResponsebills"></a>
+<a id="tocSdepthresponsebills"></a>
+<a id="tocsdepthresponsebills"></a>
+
+```json
+{
+  "price": "string",
+  "amount": "string"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|price|string|false|none|none|
+|amount|string|false|none|none|
+
+<h2 id="tocS_RecentTradesListResponseRecentTradesList">RecentTradesListResponseRecentTradesList</h2>
+<!-- backwards compatibility -->
+<a id="schemarecenttradeslistresponserecenttradeslist"></a>
+<a id="schema_RecentTradesListResponseRecentTradesList"></a>
+<a id="tocSrecenttradeslistresponserecenttradeslist"></a>
+<a id="tocsrecenttradeslistresponserecenttradeslist"></a>
+
+```json
+{
+  "id": 0,
+  "price": "string",
+  "qty": "string",
+  "quoteQty": "string",
+  "time": 0,
+  "isBuyerMaker": true
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|id|number(double)|false|none|none|
+|price|string|false|none|none|
+|qty|string|false|none|none|
+|quoteQty|string|false|none|none|
+|time|number(double)|false|none|none|
+|isBuyerMaker|boolean|false|none|none|
 
 <h2 id="tocS_protobufAny">protobufAny</h2>
 <!-- backwards compatibility -->
@@ -255,6 +635,38 @@ This operation does not require authentication
 |message|string|false|none|none|
 |details|[[protobufAny](#schemaprotobufany)]|false|none|none|
 
+<h2 id="tocS_tradeBalanceResponse">tradeBalanceResponse</h2>
+<!-- backwards compatibility -->
+<a id="schematradebalanceresponse"></a>
+<a id="schema_tradeBalanceResponse"></a>
+<a id="tocStradebalanceresponse"></a>
+<a id="tocstradebalanceresponse"></a>
+
+```json
+{
+  "balances": [
+    {
+      "accountAlias": "string",
+      "asset": "string",
+      "balance": "string",
+      "crossWalletBalance": "string",
+      "crossUnPnl": "string",
+      "availableBalance": "string",
+      "maxWithdrawAmount": "string",
+      "marginAvailable": true,
+      "updateTime": 0
+    }
+  ]
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|balances|[[BalanceResponseBalance](#schemabalanceresponsebalance)]|false|none|none|
+
 <h2 id="tocS_tradeCancelOrderResponse">tradeCancelOrderResponse</h2>
 <!-- backwards compatibility -->
 <a id="schematradecancelorderresponse"></a>
@@ -282,6 +694,50 @@ This operation does not require authentication
 |side|string|false|none|none|
 |status|string|false|none|none|
 |price|string|false|none|none|
+
+<h2 id="tocS_tradeDepthResponse">tradeDepthResponse</h2>
+<!-- backwards compatibility -->
+<a id="schematradedepthresponse"></a>
+<a id="schema_tradeDepthResponse"></a>
+<a id="tocStradedepthresponse"></a>
+<a id="tocstradedepthresponse"></a>
+
+```json
+{
+  "lastUpdateId": 0,
+  "timeStamp": 0,
+  "bid_list": [
+    {
+      "bid": [
+        {
+          "price": "string",
+          "amount": "string"
+        }
+      ]
+    }
+  ],
+  "ask_list": [
+    {
+      "bid": [
+        {
+          "price": "string",
+          "amount": "string"
+        }
+      ]
+    }
+  ]
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|lastUpdateId|number(double)|false|none|none|
+|timeStamp|number(double)|false|none|none|
+|bid_list|[[DepthResponseBidList](#schemadepthresponsebidlist)]|false|none|none|
+|ask_list|[[DepthResponseBidList](#schemadepthresponsebidlist)]|false|none|none|
 
 <h2 id="tocS_tradePlaceOrderResponse">tradePlaceOrderResponse</h2>
 <!-- backwards compatibility -->
@@ -314,4 +770,33 @@ This operation does not require authentication
 |priceRate|string|false|none|none|
 |priceProtect|boolean|false|none|none|
 |status|string|false|none|none|
+
+<h2 id="tocS_tradeRecentTradesListResponse">tradeRecentTradesListResponse</h2>
+<!-- backwards compatibility -->
+<a id="schematraderecenttradeslistresponse"></a>
+<a id="schema_tradeRecentTradesListResponse"></a>
+<a id="tocStraderecenttradeslistresponse"></a>
+<a id="tocstraderecenttradeslistresponse"></a>
+
+```json
+{
+  "trades": [
+    {
+      "id": 0,
+      "price": "string",
+      "qty": "string",
+      "quoteQty": "string",
+      "time": 0,
+      "isBuyerMaker": true
+    }
+  ]
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|trades|[[RecentTradesListResponseRecentTradesList](#schemarecenttradeslistresponserecenttradeslist)]|false|none|none|
 

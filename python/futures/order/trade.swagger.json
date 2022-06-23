@@ -16,6 +16,37 @@
     "application/json"
   ],
   "paths": {
+    "/fexgate/v1/{exchange}/balance": {
+      "get": {
+        "operationId": "FutureTrade_FutureBalance",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tradeBalanceResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "exchange",
+            "description": "required 交易所名称",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "FutureTrade"
+        ]
+      }
+    },
     "/fexgate/v1/{exchange}/cancel": {
       "delete": {
         "operationId": "FutureTrade_FutureCancelOrder",
@@ -36,27 +67,92 @@
         "parameters": [
           {
             "name": "exchange",
+            "description": "required 交易所名称",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "sybmol",
+            "name": "symbol",
+            "description": "required 订单ID.",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "orderId",
+            "description": "required 订单ID.",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "origClientOrderId",
+            "description": "用户订单ID.",
             "in": "query",
             "required": false,
             "type": "string"
+          }
+        ],
+        "tags": [
+          "FutureTrade"
+        ]
+      }
+    },
+    "/fexgate/v1/{exchange}/depth": {
+      "get": {
+        "operationId": "FutureTrade_FutureDepth",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tradeDepthResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "exchange",
+            "description": "交易所",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "symbol",
+            "description": "币种.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "description": "数量.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "isLocal",
+            "description": "本地.",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "tolerate_interval",
+            "description": "允许延迟间隔单位:秒.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
           }
         ],
         "tags": [
@@ -84,6 +180,7 @@
         "parameters": [
           {
             "name": "exchange",
+            "description": "required 交易所名称",
             "in": "path",
             "required": true,
             "type": "string"
@@ -96,10 +193,12 @@
               "type": "object",
               "properties": {
                 "symbol": {
-                  "type": "string"
+                  "type": "string",
+                  "title": "required 交易对名称"
                 },
                 "side": {
-                  "type": "string"
+                  "type": "string",
+                  "title": "required 交易方向"
                 },
                 "type": {
                   "type": "string",
@@ -128,9 +227,161 @@
           "FutureTrade"
         ]
       }
+    },
+    "/fexgate/v1/{exchange}/recent_trades": {
+      "get": {
+        "operationId": "FutureTrade_FutureRecentTradesList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/tradeRecentTradesListResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "exchange",
+            "description": "required 交易所名称",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "symbol",
+            "description": "required 币种.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "description": "required 分页页码.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "isLocal",
+            "description": "本地.",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "tags": [
+          "FutureTrade"
+        ]
+      }
     }
   },
   "definitions": {
+    "BalanceResponseBalance": {
+      "type": "object",
+      "properties": {
+        "accountAlias": {
+          "type": "string",
+          "title": "账户唯一识别码"
+        },
+        "asset": {
+          "type": "string",
+          "title": "资产"
+        },
+        "balance": {
+          "type": "string",
+          "title": "总余额"
+        },
+        "crossWalletBalance": {
+          "type": "string",
+          "title": "全仓余额"
+        },
+        "crossUnPnl": {
+          "type": "string",
+          "title": "全仓持仓未实现盈亏"
+        },
+        "availableBalance": {
+          "type": "string",
+          "title": "下单可用余额"
+        },
+        "maxWithdrawAmount": {
+          "type": "string",
+          "title": "最大可转出余额"
+        },
+        "marginAvailable": {
+          "type": "boolean",
+          "title": "是否可用作联合保证金"
+        },
+        "updateTime": {
+          "type": "number",
+          "format": "double",
+          "title": "更新时间"
+        }
+      }
+    },
+    "DepthResponseBidList": {
+      "type": "object",
+      "properties": {
+        "bid": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DepthResponsebills"
+          },
+          "title": "bills"
+        }
+      },
+      "title": "bill_list"
+    },
+    "DepthResponsebills": {
+      "type": "object",
+      "properties": {
+        "price": {
+          "type": "string",
+          "title": "价格"
+        },
+        "amount": {
+          "type": "string",
+          "title": "数量"
+        }
+      }
+    },
+    "RecentTradesListResponseRecentTradesList": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "format": "double",
+          "title": "交易id"
+        },
+        "price": {
+          "type": "string",
+          "title": "价格"
+        },
+        "qty": {
+          "type": "string",
+          "title": "数量"
+        },
+        "quoteQty": {
+          "type": "string",
+          "title": "报价数量"
+        },
+        "time": {
+          "type": "number",
+          "format": "double",
+          "title": "时间"
+        },
+        "isBuyerMaker": {
+          "type": "boolean",
+          "title": "是否是买家"
+        }
+      }
+    },
     "protobufAny": {
       "type": "object",
       "properties": {
@@ -161,23 +412,69 @@
         }
       }
     },
+    "tradeBalanceResponse": {
+      "type": "object",
+      "properties": {
+        "balances": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BalanceResponseBalance"
+          },
+          "title": "账户余额"
+        }
+      }
+    },
     "tradeCancelOrderResponse": {
       "type": "object",
       "properties": {
         "cumqty": {
-          "type": "string"
+          "type": "string",
+          "title": "撤单数量"
         },
         "origqty": {
-          "type": "string"
+          "type": "string",
+          "title": "原始数量"
         },
         "side": {
-          "type": "string"
+          "type": "string",
+          "title": "开单方向"
         },
         "status": {
-          "type": "string"
+          "type": "string",
+          "title": "订单状态"
         },
         "price": {
-          "type": "string"
+          "type": "string",
+          "title": "订单价格"
+        }
+      }
+    },
+    "tradeDepthResponse": {
+      "type": "object",
+      "properties": {
+        "lastUpdateId": {
+          "type": "number",
+          "format": "double",
+          "title": "最新更新ID"
+        },
+        "timeStamp": {
+          "type": "number",
+          "format": "double",
+          "title": "撮合引擎时间"
+        },
+        "bid_list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DepthResponseBidList"
+          },
+          "title": "买单"
+        },
+        "ask_list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DepthResponseBidList"
+          },
+          "title": "卖单"
         }
       }
     },
@@ -185,26 +482,44 @@
       "type": "object",
       "properties": {
         "clientOrderId": {
-          "type": "string"
+          "type": "string",
+          "title": "用户订单ID"
         },
         "orderId": {
           "type": "string",
-          "format": "int64"
+          "format": "int64",
+          "title": "订单ID"
         },
         "avgPrice": {
-          "type": "string"
+          "type": "string",
+          "title": "平均成交价"
         },
         "stopPrice": {
-          "type": "string"
+          "type": "string",
+          "title": "触发价"
         },
         "priceRate": {
-          "type": "string"
+          "type": "string",
+          "title": "跟踪止损回调比例"
         },
         "priceProtect": {
-          "type": "boolean"
+          "type": "boolean",
+          "title": "是否开启条件单触发保护"
         },
         "status": {
-          "type": "string"
+          "type": "string",
+          "title": "订单状态"
+        }
+      }
+    },
+    "tradeRecentTradesListResponse": {
+      "type": "object",
+      "properties": {
+        "trades": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RecentTradesListResponseRecentTradesList"
+          }
         }
       }
     }

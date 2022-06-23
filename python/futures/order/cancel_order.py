@@ -1,7 +1,8 @@
 import requests
 import json
 
-url = "http://127.0.0.1:8000/fexgate/v1/fbinance/cancel?origClientOrderId=0Z1M2GW3lw0UOHMrlOlAXg&symbol=BTCUSDT"
+domain = "http://exgate.leafan.cc/api/"
+url = domain+"fexgate/v1/fbinance/cancel?origClientOrderId=0Z1M2GW3lw0UOHMrlOlAXg&symbol=BTCUSDT"
 
 apiKey = ""
 apiSecret = ""
