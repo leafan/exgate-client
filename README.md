@@ -23,7 +23,7 @@ The exchange gateway client repository, for example etc.
 - [Indictors](python/futures/order/trade.md)
 - [Trade](python/futures/order/trade.md)
 - [Depth](python/futures/depth/depth.md)
-- [RecentTrade](python/futures/recent_trade/recent_trade.md)
+- [Price](python/futures/recent_trade/recent_trade.md)
 - [Balance](python/futures/balance/balance.md)
 
 ## ⚔️ Tested in the following Golang releases:

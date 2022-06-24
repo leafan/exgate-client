@@ -1,9 +1,8 @@
 import requests
 
-url = "http://127.0.0.1:8000/fexgate/v1/fbinance/depth?symbol=BTCUSDT&limit=5&isLocal=false&tolerate_interval=1"
+url = "http://127.0.0.1:8000/fexgate/v1/fbinance/recent_trades?symbol=btcusdt&limit=10"
 
-
-payload = {}
+payload={}
 headers = {}
 
 response = requests.request("GET", url, headers=headers, data=payload)
