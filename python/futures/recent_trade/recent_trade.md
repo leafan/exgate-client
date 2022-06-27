@@ -49,8 +49,8 @@ func main() {
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |exchange|path|string|true|required 交易所名称|
-|symbol|query|string|false|required 币种.|
-|limit|query|string(int64)|false|required 分页页码.|
+|symbol|path|string|true|required 币种|
+|limit|query|string(int64)|false|数据条数.|
 |isLocal|query|boolean|false|本地.|
 
 > Example responses
