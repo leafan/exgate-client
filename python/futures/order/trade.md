@@ -194,7 +194,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('/fexgate/v1/{exchange}/depth', headers = headers)
+r = requests.get('/fexgate/v1/{exchange}/depth/{symbol}/{limit}', headers = headers)
 
 print(r.json())
 
@@ -215,7 +215,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "/fexgate/v1/{exchange}/depth", data)
+    req, err := http.NewRequest("GET", "/fexgate/v1/{exchange}/depth/{symbol}/{limit}", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -225,15 +225,15 @@ func main() {
 
 ```
 
-`GET /fexgate/v1/{exchange}/depth`
+`GET /fexgate/v1/{exchange}/depth/{symbol}/{limit}`
 
 <h3 id="futuretrade_futuredepth-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |exchange|path|string|true|交易所|
-|symbol|query|string|false|币种.|
-|limit|query|string(int64)|false|数量.|
+|symbol|path|string|true|币种|
+|limit|path|string(int64)|true|数量|
 |isLocal|query|boolean|false|本地.|
 |tolerate_interval|query|string(int64)|false|允许延迟间隔单位:秒.|
 
@@ -395,7 +395,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('/fexgate/v1/{exchange}/recent_trades', headers = headers)
+r = requests.get('/fexgate/v1/{exchange}/recent_trades/{symbol}', headers = headers)
 
 print(r.json())
 
@@ -416,7 +416,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "/fexgate/v1/{exchange}/recent_trades", data)
+    req, err := http.NewRequest("GET", "/fexgate/v1/{exchange}/recent_trades/{symbol}", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -426,15 +426,15 @@ func main() {
 
 ```
 
-`GET /fexgate/v1/{exchange}/recent_trades`
+`GET /fexgate/v1/{exchange}/recent_trades/{symbol}`
 
 <h3 id="futuretrade_futurerecenttradeslist-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |exchange|path|string|true|required 交易所名称|
-|symbol|query|string|false|required 币种.|
-|limit|query|string(int64)|false|required 分页页码.|
+|symbol|path|string|true|required 币种|
+|limit|query|string(int64)|false|数据条数.|
 |isLocal|query|boolean|false|本地.|
 
 > Example responses

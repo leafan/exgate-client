@@ -16,7 +16,7 @@
     "application/json"
   ],
   "paths": {
-    "/fexgate/v1/{exchange}/kline/historical/madc": {
+    "/fexgate/v1/{exchange}/kline/historical/madc/{symbol}/{interval}/{start_time}/{end_time}/{periodFast}/{periodSlow}/{signal}": {
       "get": {
         "operationId": "Indicators_GetHistoricalMADC",
         "responses": {
@@ -43,61 +43,61 @@
           },
           {
             "name": "symbol",
-            "description": "required，交易对名称.",
-            "in": "query",
-            "required": false,
+            "description": "required，交易对名称",
+            "in": "path",
+            "required": true,
             "type": "string"
           },
           {
             "name": "interval",
-            "description": "required，时间周期，可选值：1min, 5min, 15min, 30min, 1hour, 1day.",
-            "in": "query",
-            "required": false,
+            "description": "required，时间周期，可选值：1min, 5min, 15min, 30min, 1hour, 1day",
+            "in": "path",
+            "required": true,
             "type": "string"
           },
           {
             "name": "start_time",
-            "description": "required，开始时间戳.",
-            "in": "query",
-            "required": false,
+            "description": "required，开始时间戳",
+            "in": "path",
+            "required": true,
             "type": "string",
             "format": "int64"
           },
           {
             "name": "end_time",
-            "description": "required，结束时间戳.",
-            "in": "query",
-            "required": false,
+            "description": "required，结束时间戳",
+            "in": "path",
+            "required": true,
             "type": "string",
             "format": "int64"
           },
           {
             "name": "periodFast",
-            "description": "required，fast信号周期.",
-            "in": "query",
-            "required": false,
+            "description": "required，fast信号周期",
+            "in": "path",
+            "required": true,
             "type": "string",
             "format": "int64"
           },
           {
             "name": "periodSlow",
-            "description": "required，slow信号周期.",
-            "in": "query",
-            "required": false,
+            "description": "required，slow信号周期",
+            "in": "path",
+            "required": true,
             "type": "string",
             "format": "int64"
           },
           {
             "name": "signal",
-            "description": "required，signal信号周期.",
-            "in": "query",
-            "required": false,
+            "description": "required，signal信号周期",
+            "in": "path",
+            "required": true,
             "type": "string",
             "format": "int64"
           },
           {
             "name": "limit",
-            "description": "required，返回数据条数.",
+            "description": "返回数据条数.",
             "in": "query",
             "required": false,
             "type": "string",
@@ -105,7 +105,7 @@
           },
           {
             "name": "isProxy",
-            "description": "required，是否使用代理,走http，或者local，默认为false.",
+            "description": "是否使用代理,走http，或者local，默认为false.",
             "in": "query",
             "required": false,
             "type": "boolean"
@@ -116,7 +116,7 @@
         ]
       }
     },
-    "/fexgate/v1/{exchange}/kline/historical/rsi": {
+    "/fexgate/v1/{exchange}/kline/historical/rsi/{symbol}/{interval}/{period}/{start_time}/{end_time}": {
       "get": {
         "operationId": "Indicators_GetHistoricalRSI",
         "responses": {
@@ -143,45 +143,45 @@
           },
           {
             "name": "symbol",
-            "description": "required，交易对名称.",
-            "in": "query",
-            "required": false,
+            "description": "required，交易对名称",
+            "in": "path",
+            "required": true,
             "type": "string"
           },
           {
             "name": "interval",
-            "description": "required，时间周期，可选值：1min, 5min, 15min, 30min, 1hour, 1day.",
-            "in": "query",
-            "required": false,
+            "description": "required，时间周期，可选值：1min, 5min, 15min, 30min, 1hour, 1day",
+            "in": "path",
+            "required": true,
             "type": "string"
           },
           {
+            "name": "period",
+            "description": "required，信号周期",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
             "name": "start_time",
-            "description": "required，开始时间戳.",
-            "in": "query",
-            "required": false,
+            "description": "required，开始时间戳",
+            "in": "path",
+            "required": true,
             "type": "string",
             "format": "int64"
           },
           {
             "name": "end_time",
-            "description": "required，结束时间戳.",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "format": "int64"
-          },
-          {
-            "name": "period",
-            "description": "required，信号周期.",
-            "in": "query",
-            "required": false,
+            "description": "required，结束时间戳",
+            "in": "path",
+            "required": true,
             "type": "string",
             "format": "int64"
           },
           {
             "name": "limit",
-            "description": "required，返回数据条数.",
+            "description": "返回数据条数.",
             "in": "query",
             "required": false,
             "type": "string",
@@ -189,7 +189,7 @@
           },
           {
             "name": "isProxy",
-            "description": "required，是否使用代理,走http，或者local，默认为false.",
+            "description": "是否使用代理,走http，或者local，默认为false.",
             "in": "query",
             "required": false,
             "type": "boolean"
@@ -200,7 +200,7 @@
         ]
       }
     },
-    "/fexgate/v1/{exchange}/kline/madc": {
+    "/fexgate/v1/{exchange}/kline/madc/{symbol}/{interval}/{periodFast}/{periodSlow}/{signal}": {
       "get": {
         "operationId": "Indicators_GetRecentMADC",
         "responses": {
@@ -227,45 +227,45 @@
           },
           {
             "name": "symbol",
-            "description": "required，交易对名称.",
-            "in": "query",
-            "required": false,
+            "description": "required，交易对名称",
+            "in": "path",
+            "required": true,
             "type": "string"
           },
           {
             "name": "interval",
-            "description": "required，时间周期，可选值：1min, 5min, 15min, 30min, 1hour, 1day.",
-            "in": "query",
-            "required": false,
+            "description": "required，时间周期，可选值：1min, 5min, 15min, 30min, 1hour, 1day",
+            "in": "path",
+            "required": true,
             "type": "string"
           },
           {
             "name": "periodFast",
-            "description": "required，快速移动平均线周期.",
-            "in": "query",
-            "required": false,
+            "description": "required，快速移动平均线周期",
+            "in": "path",
+            "required": true,
             "type": "string",
             "format": "int64"
           },
           {
             "name": "periodSlow",
-            "description": "required，慢速移动平均线周期.",
-            "in": "query",
-            "required": false,
+            "description": "required，慢速移动平均线周期",
+            "in": "path",
+            "required": true,
             "type": "string",
             "format": "int64"
           },
           {
             "name": "signal",
-            "description": "required，信号周期.",
-            "in": "query",
-            "required": false,
+            "description": "required，信号周期",
+            "in": "path",
+            "required": true,
             "type": "string",
             "format": "int64"
           },
           {
             "name": "limit",
-            "description": "required，返回数据条数.",
+            "description": "返回数据条数.",
             "in": "query",
             "required": false,
             "type": "string",
@@ -273,7 +273,7 @@
           },
           {
             "name": "isProxy",
-            "description": "required，是否使用代理,走http，或者local，默认为false.",
+            "description": "是否使用代理,走http，或者local，默认为false.",
             "in": "query",
             "required": false,
             "type": "boolean"
@@ -284,7 +284,7 @@
         ]
       }
     },
-    "/fexgate/v1/{exchange}/kline/rsi": {
+    "/fexgate/v1/{exchange}/kline/rsi/{symbol}/{interval}/{period}": {
       "get": {
         "operationId": "Indicators_GetRecentRSI",
         "responses": {
@@ -311,29 +311,29 @@
           },
           {
             "name": "symbol",
-            "description": "required，交易对名称.",
-            "in": "query",
-            "required": false,
+            "description": "required，交易对名称",
+            "in": "path",
+            "required": true,
             "type": "string"
           },
           {
             "name": "interval",
-            "description": "required，时间周期，可选值：1min, 5min, 15min, 30min, 1hour, 1day.",
-            "in": "query",
-            "required": false,
+            "description": "required，时间周期，可选值：1min, 5min, 15min, 30min, 1hour, 1day",
+            "in": "path",
+            "required": true,
             "type": "string"
           },
           {
             "name": "period",
-            "description": "required，信号周期.",
-            "in": "query",
-            "required": false,
+            "description": "required，信号周期",
+            "in": "path",
+            "required": true,
             "type": "string",
             "format": "int64"
           },
           {
             "name": "limit",
-            "description": "required，返回数据条数.",
+            "description": "返回数据条数.",
             "in": "query",
             "required": false,
             "type": "string",
@@ -341,7 +341,7 @@
           },
           {
             "name": "isProxy",
-            "description": "required，是否使用代理,走http，或者local，默认为false.",
+            "description": "是否使用代理,走http，或者local，默认为false.",
             "in": "query",
             "required": false,
             "type": "boolean"

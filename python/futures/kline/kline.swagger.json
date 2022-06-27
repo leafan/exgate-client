@@ -16,7 +16,7 @@
     "application/json"
   ],
   "paths": {
-    "/fexgate/v1/{exchange}/aggtrade/pull": {
+    "/fexgate/v1/{exchange}/aggtrade/pull/{symbol}/{interval}": {
       "get": {
         "summary": "拉取聚合交易数据，走websocket",
         "operationId": "Kline_PullAggtrade",
@@ -44,16 +44,16 @@
           },
           {
             "name": "symbol",
-            "description": "交易对名称.",
-            "in": "query",
-            "required": false,
+            "description": "交易对名称",
+            "in": "path",
+            "required": true,
             "type": "string"
           },
           {
             "name": "interval",
-            "description": "按照时间段拉取数据.",
-            "in": "query",
-            "required": false,
+            "description": "按照时间段拉取数据",
+            "in": "path",
+            "required": true,
             "type": "string"
           }
         ],
@@ -62,7 +62,7 @@
         ]
       }
     },
-    "/fexgate/v1/{exchange}/aggtrade/scanner/allkline": {
+    "/fexgate/v1/{exchange}/aggtrade/scanner/allkline/{cron_interval}": {
       "get": {
         "summary": "gen 所有交易所建立ws连接的k线数据",
         "operationId": "Kline_AggTradeScannerAllKLine",
@@ -90,9 +90,9 @@
           },
           {
             "name": "cron_interval",
-            "description": "调度时间间隔.",
-            "in": "query",
-            "required": false,
+            "description": "调度时间间隔",
+            "in": "path",
+            "required": true,
             "type": "string"
           }
         ],
@@ -101,7 +101,7 @@
         ]
       }
     },
-    "/fexgate/v1/{exchange}/aggtrade/scanner/kline": {
+    "/fexgate/v1/{exchange}/aggtrade/scanner/kline/{symbol}/{interval}": {
       "get": {
         "summary": "从aggtrade中生成kline",
         "operationId": "Kline_AggTradeScannerKLine",
@@ -129,16 +129,16 @@
           },
           {
             "name": "symbol",
-            "description": "交易对名称.",
-            "in": "query",
-            "required": false,
+            "description": "交易对名称",
+            "in": "path",
+            "required": true,
             "type": "string"
           },
           {
             "name": "interval",
-            "description": "k线类型.",
-            "in": "query",
-            "required": false,
+            "description": "k线类型",
+            "in": "path",
+            "required": true,
             "type": "string"
           }
         ],
@@ -147,7 +147,7 @@
         ]
       }
     },
-    "/fexgate/v1/{exchange}/aggtrade/stop": {
+    "/fexgate/v1/{exchange}/aggtrade/stop/{symbol}/{interval}": {
       "get": {
         "summary": "停止拉取聚合交易数据",
         "operationId": "Kline_StopPullAggtrade",
@@ -175,16 +175,16 @@
           },
           {
             "name": "symbol",
-            "description": "交易对名称.",
-            "in": "query",
-            "required": false,
+            "description": "交易对名称",
+            "in": "path",
+            "required": true,
             "type": "string"
           },
           {
             "name": "interval",
-            "description": "按照时间段拉取数据.",
-            "in": "query",
-            "required": false,
+            "description": "按照时间段拉取数据",
+            "in": "path",
+            "required": true,
             "type": "string"
           }
         ],
@@ -193,8 +193,9 @@
         ]
       }
     },
-    "/fexgate/v1/{exchange}/exgate/kline": {
+    "/fexgate/v1/{exchange}/exgate/kline/{symbol}/{interval}/{startTime}/{endTime}": {
       "get": {
+        "summary": "by local",
         "operationId": "Kline_GetKlineByExgate",
         "responses": {
           "200": {
@@ -220,16 +221,86 @@
           },
           {
             "name": "symbol",
-            "description": "required 币种名称.",
-            "in": "query",
-            "required": false,
+            "description": "required 币种名称",
+            "in": "path",
+            "required": true,
             "type": "string"
           },
           {
             "name": "interval",
-            "description": "required 间隔.",
+            "description": "required 间隔",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "startTime",
+            "description": "required 开始时间",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "endTime",
+            "description": "required 结束时间",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
+            "description": "required 数量.",
             "in": "query",
             "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "Kline"
+        ]
+      }
+    },
+    "/fexgate/v1/{exchange}/genkline/{symbol}/{interval}": {
+      "get": {
+        "summary": "genkline",
+        "operationId": "Kline_GenKline",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/klineGetKlineResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "exchange",
+            "description": "required 交易所名称",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "symbol",
+            "description": "required 币种名称",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "interval",
+            "description": "required 间隔",
+            "in": "path",
+            "required": true,
             "type": "string"
           },
           {
@@ -262,8 +333,9 @@
         ]
       }
     },
-    "/fexgate/v1/{exchange}/kline": {
+    "/fexgate/v1/{exchange}/kline/{symbol}/{interval}": {
       "get": {
+        "summary": "by proxy",
         "operationId": "Kline_GetKline",
         "responses": {
           "200": {
@@ -289,16 +361,16 @@
           },
           {
             "name": "symbol",
-            "description": "required 币种名称.",
-            "in": "query",
-            "required": false,
+            "description": "required 币种名称",
+            "in": "path",
+            "required": true,
             "type": "string"
           },
           {
             "name": "interval",
-            "description": "required 间隔.",
-            "in": "query",
-            "required": false,
+            "description": "required 间隔",
+            "in": "path",
+            "required": true,
             "type": "string"
           },
           {
@@ -331,7 +403,7 @@
         ]
       }
     },
-    "/fexgate/v1/{exchange}/recent": {
+    "/fexgate/v1/{exchange}/recent/{symbol}": {
       "get": {
         "operationId": "Kline_GetTradeRecent",
         "responses": {
@@ -358,9 +430,9 @@
           },
           {
             "name": "symbol",
-            "description": "required 币种名称.",
-            "in": "query",
-            "required": false,
+            "description": "required 币种名称",
+            "in": "path",
+            "required": true,
             "type": "string"
           }
         ],

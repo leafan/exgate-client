@@ -99,7 +99,7 @@
         ]
       }
     },
-    "/fexgate/v1/{exchange}/depth": {
+    "/fexgate/v1/{exchange}/depth/{symbol}/{limit}": {
       "get": {
         "operationId": "FutureTrade_FutureDepth",
         "responses": {
@@ -126,16 +126,16 @@
           },
           {
             "name": "symbol",
-            "description": "币种.",
-            "in": "query",
-            "required": false,
+            "description": "币种",
+            "in": "path",
+            "required": true,
             "type": "string"
           },
           {
             "name": "limit",
-            "description": "数量.",
-            "in": "query",
-            "required": false,
+            "description": "数量",
+            "in": "path",
+            "required": true,
             "type": "string",
             "format": "int64"
           },
@@ -202,15 +202,15 @@
                 },
                 "type": {
                   "type": "string",
-                  "title": "订单类型"
+                  "title": "required 订单类型"
                 },
                 "price": {
                   "type": "string",
-                  "title": "下单价格"
+                  "title": "required 下单价格"
                 },
                 "amount": {
                   "type": "string",
-                  "title": "下单数量"
+                  "title": "required 下单数量"
                 },
                 "options": {
                   "type": "object",
@@ -228,7 +228,7 @@
         ]
       }
     },
-    "/fexgate/v1/{exchange}/recent_trades": {
+    "/fexgate/v1/{exchange}/recent_trades/{symbol}": {
       "get": {
         "operationId": "FutureTrade_FutureRecentTradesList",
         "responses": {
@@ -255,14 +255,14 @@
           },
           {
             "name": "symbol",
-            "description": "required 币种.",
-            "in": "query",
-            "required": false,
+            "description": "required 币种",
+            "in": "path",
+            "required": true,
             "type": "string"
           },
           {
             "name": "limit",
-            "description": "required 分页页码.",
+            "description": "数据条数.",
             "in": "query",
             "required": false,
             "type": "string",
