@@ -153,9 +153,11 @@ func main() {
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |exchange|path|string|true|required 交易所名称|
-|symbol|query|string|false|required 订单ID.|
-|orderId|query|string|false|required 订单ID.|
+|symbol|query|string|true|required 交易对.|
+|orderId|query|string|flase| 订单ID.|
 |origClientOrderId|query|string|false|用户订单ID.|
+ 
+> orderId 或者 origClientOrderId 二选一传参.
 
 > Example responses
 
@@ -348,11 +350,11 @@ func main() {
 |---|---|---|---|---|
 |exchange|path|string|true|required 交易所名称|
 |body|body|object|true|none|
-|» symbol|body|string|false|none|
-|» side|body|string|false|none|
-|» type|body|string|false|none|
-|» price|body|string|false|none|
-|» amount|body|string|false|none|
+|» symbol|body|string|true|交易对|
+|» side|body|string|true|交易方向|
+|» type|body|string|true|交易类型|
+|» price|body|string|true|交易价格|
+|» amount|body|string|true|交易数量|
 |» options|body|object|false|may have part of exchange options is difference, so need this options.|
 |»» **additionalProperties**|body|string|false|none|
 
