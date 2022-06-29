@@ -51,7 +51,6 @@ func main() {
 |exchange|path|string|true|required 交易所名称|
 |symbol|path|string|true|required 币种|
 |limit|query|string(int64)|false|默认:500，最大1000.|
-|isLocal|query|boolean|false|本地.|
 |tolerate_interval|query|string(int64)|false|允许延迟间隔单位:秒.|
 
 > Example responses
