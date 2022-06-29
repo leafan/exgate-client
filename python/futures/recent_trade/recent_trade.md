@@ -1,7 +1,7 @@
 
-## FutureTrade_FutureRecentTradesList
+## Universal_RecentTradesList
 
-<a id="opIdFutureTrade_FutureRecentTradesList"></a>
+<a id="opIdUniversal_RecentTradesList"></a>
 
 > Code samples
 
@@ -11,7 +11,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('/fexgate/v1/{exchange}/recent_trades', headers = headers)
+r = requests.get('/exgate/v1/{exchange}/get_recent_trades/{symbol}', headers = headers)
 
 print(r.json())
 
@@ -32,7 +32,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "/fexgate/v1/{exchange}/recent_trades", data)
+    req, err := http.NewRequest("GET", "/exgate/v1/{exchange}/get_recent_trades/{symbol}", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -42,16 +42,17 @@ func main() {
 
 ```
 
-`GET /fexgate/v1/{exchange}/recent_trades`
+`GET /exgate/v1/{exchange}/get_recent_trades/{symbol}`
 
-<h3 id="futuretrade_futurerecenttradeslist-parameters">Parameters</h3>
+<h3 id="universal_recenttradeslist-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |exchange|path|string|true|required 交易所名称|
 |symbol|path|string|true|required 币种|
-|limit|query|string(int64)|false|数据条数.|
+|limit|query|string(int64)|false|默认:500，最大1000.|
 |isLocal|query|boolean|false|本地.|
+|tolerate_interval|query|string(int64)|false|允许延迟间隔单位:秒.|
 
 > Example responses
 
@@ -72,11 +73,11 @@ func main() {
 }
 ```
 
-<h3 id="futuretrade_futurerecenttradeslist-responses">Responses</h3>
+<h3 id="universal_recenttradeslist-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A successful response.|[tradeRecentTradesListResponse](#schematraderecenttradeslistresponse)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A successful response.|[universalRecentTradesListResponse](#schemauniversalrecenttradeslistresponse)|
 |default|Default|An unexpected error response.|[rpcStatus](#schemarpcstatus)|
 
 <aside class="success">
