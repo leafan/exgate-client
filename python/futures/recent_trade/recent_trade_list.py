@@ -1,8 +1,8 @@
 import requests
 
-url = "http://exgate.leafan.cc/api/fexgate/v1/fbinance/recent_trades?symbol=btcusdt&limit=10"
+url = "http://exgate.leafan.cc/api/exgate/v1/fbinance/get_recent_trades/btcusdt?limit=20"
 
-payload={}
+payload = {}
 headers = {}
 
 response = requests.request("GET", url, headers=headers, data=payload)
