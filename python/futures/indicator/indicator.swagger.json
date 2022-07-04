@@ -16,7 +16,7 @@
     "application/json"
   ],
   "paths": {
-    "/fexgate/v1/{exchange}/kline/historical/madc/{symbol}/{interval}/{start_time}/{end_time}/{periodFast}/{periodSlow}/{signal}": {
+    "/v1/{exchange}/kline/historical/madc/{symbol}/{interval}/{start_time}/{end_time}/{periodFast}/{periodSlow}/{signal}/{limit}": {
       "get": {
         "operationId": "Indicators_GetHistoricalMADC",
         "responses": {
@@ -97,9 +97,9 @@
           },
           {
             "name": "limit",
-            "description": "返回数据条数.",
-            "in": "query",
-            "required": false,
+            "description": "required,返回数据条数",
+            "in": "path",
+            "required": true,
             "type": "string",
             "format": "int64"
           },
@@ -116,7 +116,7 @@
         ]
       }
     },
-    "/fexgate/v1/{exchange}/kline/historical/rsi/{symbol}/{interval}/{period}/{start_time}/{end_time}": {
+    "/v1/{exchange}/kline/historical/rsi/{symbol}/{interval}/{period}/{start_time}/{end_time}/{limit}": {
       "get": {
         "operationId": "Indicators_GetHistoricalRSI",
         "responses": {
@@ -181,9 +181,9 @@
           },
           {
             "name": "limit",
-            "description": "返回数据条数.",
-            "in": "query",
-            "required": false,
+            "description": "required,返回数据条数",
+            "in": "path",
+            "required": true,
             "type": "string",
             "format": "int64"
           },
@@ -200,7 +200,7 @@
         ]
       }
     },
-    "/fexgate/v1/{exchange}/kline/madc/{symbol}/{interval}/{periodFast}/{periodSlow}/{signal}": {
+    "/v1/{exchange}/kline/madc/{symbol}/{interval}/{periodFast}/{periodSlow}/{signal}/{limit}": {
       "get": {
         "operationId": "Indicators_GetRecentMADC",
         "responses": {
@@ -265,9 +265,9 @@
           },
           {
             "name": "limit",
-            "description": "返回数据条数.",
-            "in": "query",
-            "required": false,
+            "description": "required ,返回数据条数",
+            "in": "path",
+            "required": true,
             "type": "string",
             "format": "int64"
           },
@@ -284,7 +284,7 @@
         ]
       }
     },
-    "/fexgate/v1/{exchange}/kline/rsi/{symbol}/{interval}/{period}": {
+    "/v1/{exchange}/kline/rsi/{symbol}/{interval}/{period}/{limit}": {
       "get": {
         "operationId": "Indicators_GetRecentRSI",
         "responses": {
@@ -333,9 +333,9 @@
           },
           {
             "name": "limit",
-            "description": "返回数据条数.",
-            "in": "query",
-            "required": false,
+            "description": "required 返回数据条数",
+            "in": "path",
+            "required": true,
             "type": "string",
             "format": "int64"
           },

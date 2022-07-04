@@ -31,7 +31,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('/fexgate/v1/{exchange}/aggtrade/pull/{symbol}/{interval}', headers = headers)
+r = requests.get('/v1/{exchange}/aggtrade/pull/{symbol}/{interval}', headers = headers)
 
 print(r.json())
 
@@ -52,7 +52,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "/fexgate/v1/{exchange}/aggtrade/pull/{symbol}/{interval}", data)
+    req, err := http.NewRequest("GET", "/v1/{exchange}/aggtrade/pull/{symbol}/{interval}", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -62,7 +62,7 @@ func main() {
 
 ```
 
-`GET /fexgate/v1/{exchange}/aggtrade/pull/{symbol}/{interval}`
+`GET /v1/{exchange}/aggtrade/pull/{symbol}/{interval}`
 
 *拉取聚合交易数据，走websocket*
 
@@ -108,7 +108,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('/fexgate/v1/{exchange}/aggtrade/scanner/allkline/{cron_interval}', headers = headers)
+r = requests.get('/v1/{exchange}/aggtrade/scanner/allkline/{cron_interval}', headers = headers)
 
 print(r.json())
 
@@ -129,7 +129,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "/fexgate/v1/{exchange}/aggtrade/scanner/allkline/{cron_interval}", data)
+    req, err := http.NewRequest("GET", "/v1/{exchange}/aggtrade/scanner/allkline/{cron_interval}", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -139,7 +139,7 @@ func main() {
 
 ```
 
-`GET /fexgate/v1/{exchange}/aggtrade/scanner/allkline/{cron_interval}`
+`GET /v1/{exchange}/aggtrade/scanner/allkline/{cron_interval}`
 
 *gen 所有交易所建立ws连接的k线数据*
 
@@ -184,7 +184,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('/fexgate/v1/{exchange}/aggtrade/scanner/kline/{symbol}/{interval}', headers = headers)
+r = requests.get('/v1/{exchange}/aggtrade/scanner/kline/{symbol}/{interval}', headers = headers)
 
 print(r.json())
 
@@ -205,7 +205,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "/fexgate/v1/{exchange}/aggtrade/scanner/kline/{symbol}/{interval}", data)
+    req, err := http.NewRequest("GET", "/v1/{exchange}/aggtrade/scanner/kline/{symbol}/{interval}", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -215,7 +215,7 @@ func main() {
 
 ```
 
-`GET /fexgate/v1/{exchange}/aggtrade/scanner/kline/{symbol}/{interval}`
+`GET /v1/{exchange}/aggtrade/scanner/kline/{symbol}/{interval}`
 
 *从aggtrade中生成kline*
 
@@ -261,7 +261,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('/fexgate/v1/{exchange}/aggtrade/stop/{symbol}/{interval}', headers = headers)
+r = requests.get('/v1/{exchange}/aggtrade/stop/{symbol}/{interval}', headers = headers)
 
 print(r.json())
 
@@ -282,7 +282,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "/fexgate/v1/{exchange}/aggtrade/stop/{symbol}/{interval}", data)
+    req, err := http.NewRequest("GET", "/v1/{exchange}/aggtrade/stop/{symbol}/{interval}", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -292,7 +292,7 @@ func main() {
 
 ```
 
-`GET /fexgate/v1/{exchange}/aggtrade/stop/{symbol}/{interval}`
+`GET /v1/{exchange}/aggtrade/stop/{symbol}/{interval}`
 
 *停止拉取聚合交易数据*
 
@@ -338,7 +338,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('/fexgate/v1/{exchange}/exgate/kline/{symbol}/{interval}/{startTime}/{endTime}', headers = headers)
+r = requests.get('/v1/{exchange}/exgate/kline/{symbol}/{interval}/{startTime}/{endTime}', headers = headers)
 
 print(r.json())
 
@@ -359,7 +359,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "/fexgate/v1/{exchange}/exgate/kline/{symbol}/{interval}/{startTime}/{endTime}", data)
+    req, err := http.NewRequest("GET", "/v1/{exchange}/exgate/kline/{symbol}/{interval}/{startTime}/{endTime}", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -369,7 +369,7 @@ func main() {
 
 ```
 
-`GET /fexgate/v1/{exchange}/exgate/kline/{symbol}/{interval}/{startTime}/{endTime}`
+`GET /v1/{exchange}/exgate/kline/{symbol}/{interval}/{startTime}/{endTime}`
 
 *by local*
 
@@ -427,7 +427,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('/fexgate/v1/{exchange}/genkline/{symbol}/{interval}', headers = headers)
+r = requests.get('/v1/{exchange}/genkline/{symbol}/{interval}', headers = headers)
 
 print(r.json())
 
@@ -448,7 +448,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "/fexgate/v1/{exchange}/genkline/{symbol}/{interval}", data)
+    req, err := http.NewRequest("GET", "/v1/{exchange}/genkline/{symbol}/{interval}", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -458,7 +458,7 @@ func main() {
 
 ```
 
-`GET /fexgate/v1/{exchange}/genkline/{symbol}/{interval}`
+`GET /v1/{exchange}/genkline/{symbol}/{interval}`
 
 *genkline*
 
@@ -516,7 +516,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('/fexgate/v1/{exchange}/kline/{symbol}/{interval}', headers = headers)
+r = requests.get('/v1/{exchange}/kline/{symbol}/{interval}', headers = headers)
 
 print(r.json())
 
@@ -537,7 +537,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "/fexgate/v1/{exchange}/kline/{symbol}/{interval}", data)
+    req, err := http.NewRequest("GET", "/v1/{exchange}/kline/{symbol}/{interval}", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -547,7 +547,7 @@ func main() {
 
 ```
 
-`GET /fexgate/v1/{exchange}/kline/{symbol}/{interval}`
+`GET /v1/{exchange}/kline/{symbol}/{interval}`
 
 *by proxy*
 
@@ -605,7 +605,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('/fexgate/v1/{exchange}/recent/{symbol}', headers = headers)
+r = requests.get('/v1/{exchange}/recent/{symbol}', headers = headers)
 
 print(r.json())
 
@@ -626,7 +626,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "/fexgate/v1/{exchange}/recent/{symbol}", data)
+    req, err := http.NewRequest("GET", "/v1/{exchange}/recent/{symbol}", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -636,7 +636,7 @@ func main() {
 
 ```
 
-`GET /fexgate/v1/{exchange}/recent/{symbol}`
+`GET /v1/{exchange}/recent/{symbol}`
 
 <h3 id="kline_gettraderecent-parameters">Parameters</h3>
 

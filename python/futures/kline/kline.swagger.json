@@ -16,7 +16,7 @@
     "application/json"
   ],
   "paths": {
-    "/fexgate/v1/{exchange}/aggtrade/pull/{symbol}/{interval}": {
+    "/v1/{exchange}/aggtrade/pull/{symbol}/{interval}": {
       "get": {
         "summary": "拉取聚合交易数据，走websocket",
         "operationId": "Kline_PullAggtrade",
@@ -62,7 +62,7 @@
         ]
       }
     },
-    "/fexgate/v1/{exchange}/aggtrade/scanner/allkline/{cron_interval}": {
+    "/v1/{exchange}/aggtrade/scanner/allkline/{cron_interval}": {
       "get": {
         "summary": "gen 所有交易所建立ws连接的k线数据",
         "operationId": "Kline_AggTradeScannerAllKLine",
@@ -101,7 +101,7 @@
         ]
       }
     },
-    "/fexgate/v1/{exchange}/aggtrade/scanner/kline/{symbol}/{interval}": {
+    "/v1/{exchange}/aggtrade/scanner/kline/{symbol}/{interval}": {
       "get": {
         "summary": "从aggtrade中生成kline",
         "operationId": "Kline_AggTradeScannerKLine",
@@ -147,7 +147,7 @@
         ]
       }
     },
-    "/fexgate/v1/{exchange}/aggtrade/stop/{symbol}/{interval}": {
+    "/v1/{exchange}/aggtrade/stop/{symbol}/{interval}": {
       "get": {
         "summary": "停止拉取聚合交易数据",
         "operationId": "Kline_StopPullAggtrade",
@@ -193,7 +193,7 @@
         ]
       }
     },
-    "/fexgate/v1/{exchange}/exgate/kline/{symbol}/{interval}/{startTime}/{endTime}": {
+    "/v1/{exchange}/exgate/kline/{symbol}/{interval}/{startTime}/{endTime}": {
       "get": {
         "summary": "by local",
         "operationId": "Kline_GetKlineByExgate",
@@ -263,7 +263,7 @@
         ]
       }
     },
-    "/fexgate/v1/{exchange}/genkline/{symbol}/{interval}": {
+    "/v1/{exchange}/genkline/{symbol}/{interval}": {
       "get": {
         "summary": "genkline",
         "operationId": "Kline_GenKline",
@@ -333,7 +333,7 @@
         ]
       }
     },
-    "/fexgate/v1/{exchange}/kline/{symbol}/{interval}": {
+    "/v1/{exchange}/kline/{symbol}/{interval}": {
       "get": {
         "summary": "by proxy",
         "operationId": "Kline_GetKline",
@@ -403,7 +403,7 @@
         ]
       }
     },
-    "/fexgate/v1/{exchange}/recent/{symbol}": {
+    "/v1/{exchange}/recent/{symbol}": {
       "get": {
         "operationId": "Kline_GetTradeRecent",
         "responses": {

@@ -1,5 +1,5 @@
 ---
-title: api/exgate/v1/futures/trade/trade.proto version not set
+title: api/exgate/v1/spot/trade/exgate.proto version not set
 language_tabs:
   - python: Python
   - go: Go
@@ -13,15 +13,15 @@ headingLevel: 2
 
 <!-- Generator: Widdershins v4.0.1 -->
 
-<h1 id="api-exgate-v1-futures-trade-trade-proto">api/exgate/v1/futures/trade/trade.proto version not set</h1>
+<h1 id="api-exgate-v1-spot-trade-exgate-proto">api/exgate/v1/spot/trade/exgate.proto version not set</h1>
 
 > Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
 
-<h1 id="api-exgate-v1-futures-trade-trade-proto-futuretrade">FutureTrade</h1>
+<h1 id="api-exgate-v1-spot-trade-exgate-proto-exgate">ExGate</h1>
 
-## FutureTrade_FutureBalance
+## ExGate_SpotBalances
 
-<a id="opIdFutureTrade_FutureBalance"></a>
+<a id="opIdExGate_SpotBalances"></a>
 
 > Code samples
 
@@ -31,7 +31,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('/fexgate/v1/{exchange}/balance', headers = headers)
+r = requests.get('/v1/{exchange}/balances', headers = headers)
 
 print(r.json())
 
@@ -52,7 +52,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "/fexgate/v1/{exchange}/balance", data)
+    req, err := http.NewRequest("GET", "/v1/{exchange}/balances", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -62,13 +62,15 @@ func main() {
 
 ```
 
-`GET /fexgate/v1/{exchange}/balance`
+`GET /v1/{exchange}/balances`
 
-<h3 id="futuretrade_futurebalance-parameters">Parameters</h3>
+*获取用户资产*
+
+<h3 id="exgate_spotbalances-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|exchange|path|string|true|required 交易所名称|
+|exchange|path|string|true|none|
 
 > Example responses
 
@@ -78,44 +80,39 @@ func main() {
 {
   "balances": [
     {
-      "accountAlias": "string",
       "asset": "string",
-      "balance": "string",
-      "crossWalletBalance": "string",
-      "crossUnPnl": "string",
-      "availableBalance": "string",
-      "maxWithdrawAmount": "string",
-      "marginAvailable": true,
-      "updateTime": 0
+      "available": "string",
+      "frozen": "string"
     }
   ]
 }
 ```
 
-<h3 id="futuretrade_futurebalance-responses">Responses</h3>
+<h3 id="exgate_spotbalances-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A successful response.|[tradeBalanceResponse](#schematradebalanceresponse)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A successful response.|[v1BalancesResponse](#schemav1balancesresponse)|
 |default|Default|An unexpected error response.|[rpcStatus](#schemarpcstatus)|
 
 <aside class="success">
 This operation does not require authentication
 </aside>
 
-## FutureTrade_FutureCancelOrder
+## ExGate_SpotCancelOrder
 
-<a id="opIdFutureTrade_FutureCancelOrder"></a>
+<a id="opIdExGate_SpotCancelOrder"></a>
 
 > Code samples
 
 ```python
 import requests
 headers = {
+  'Content-Type': 'application/json',
   'Accept': 'application/json'
 }
 
-r = requests.delete('/fexgate/v1/{exchange}/cancel', headers = headers)
+r = requests.post('/v1/{exchange}/cancel', headers = headers)
 
 print(r.json())
 
@@ -132,11 +129,12 @@ import (
 func main() {
 
     headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
         "Accept": []string{"application/json"},
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("DELETE", "/fexgate/v1/{exchange}/cancel", data)
+    req, err := http.NewRequest("POST", "/v1/{exchange}/cancel", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -146,18 +144,31 @@ func main() {
 
 ```
 
-`DELETE /fexgate/v1/{exchange}/cancel`
+`POST /v1/{exchange}/cancel`
 
-<h3 id="futuretrade_futurecancelorder-parameters">Parameters</h3>
+> Body parameter
+
+```json
+{
+  "symbol": "string",
+  "order_id": "string",
+  "options": {
+    "property1": "string",
+    "property2": "string"
+  }
+}
+```
+
+<h3 id="exgate_spotcancelorder-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|exchange|path|string|true|required 交易所名称|
-|symbol|query|string|true|required 交易对.|
-|orderId|query|string|flase| 订单ID.|
-|origClientOrderId|query|string|false|用户订单ID.|
- 
-> orderId 或者 origClientOrderId 二选一传参.
+|exchange|path|string|true|交易所名称|
+|body|body|object|true|none|
+|» symbol|body|string|false|none|
+|» order_id|body|string|false|none|
+|» options|body|object|false|none|
+|»» **additionalProperties**|body|string|false|none|
 
 > Example responses
 
@@ -165,28 +176,24 @@ func main() {
 
 ```json
 {
-  "cumqty": "string",
-  "origqty": "string",
-  "side": "string",
-  "status": "string",
-  "price": "string"
+  "status": "string"
 }
 ```
 
-<h3 id="futuretrade_futurecancelorder-responses">Responses</h3>
+<h3 id="exgate_spotcancelorder-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A successful response.|[tradeCancelOrderResponse](#schematradecancelorderresponse)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A successful response.|[exgatev1CancelOrderResponse](#schemaexgatev1cancelorderresponse)|
 |default|Default|An unexpected error response.|[rpcStatus](#schemarpcstatus)|
 
 <aside class="success">
 This operation does not require authentication
 </aside>
 
-## FutureTrade_FutureDepth
+## ExGate_SpotDepth
 
-<a id="opIdFutureTrade_FutureDepth"></a>
+<a id="opIdExGate_SpotDepth"></a>
 
 > Code samples
 
@@ -196,7 +203,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('/fexgate/v1/{exchange}/depth/{symbol}/{limit}', headers = headers)
+r = requests.get('/v1/{exchange}/depth', headers = headers)
 
 print(r.json())
 
@@ -217,7 +224,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "/fexgate/v1/{exchange}/depth/{symbol}/{limit}", data)
+    req, err := http.NewRequest("GET", "/v1/{exchange}/depth", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -227,15 +234,17 @@ func main() {
 
 ```
 
-`GET /fexgate/v1/{exchange}/depth/{symbol}/{limit}`
+`GET /v1/{exchange}/depth`
 
-<h3 id="futuretrade_futuredepth-parameters">Parameters</h3>
+*获取深度*
+
+<h3 id="exgate_spotdepth-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |exchange|path|string|true|交易所|
-|symbol|path|string|true|币种|
-|limit|path|string(int64)|true|数量|
+|symbol|query|string|false|币种.|
+|limit|query|string(int64)|false|数量.|
 |isLocal|query|boolean|false|本地.|
 |tolerate_interval|query|string(int64)|false|允许延迟间隔单位:秒.|
 
@@ -270,20 +279,20 @@ func main() {
 }
 ```
 
-<h3 id="futuretrade_futuredepth-responses">Responses</h3>
+<h3 id="exgate_spotdepth-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A successful response.|[tradeDepthResponse](#schematradedepthresponse)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A successful response.|[exgatev1DepthResponse](#schemaexgatev1depthresponse)|
 |default|Default|An unexpected error response.|[rpcStatus](#schemarpcstatus)|
 
 <aside class="success">
 This operation does not require authentication
 </aside>
 
-## FutureTrade_FuturePlaceOrder
+## ExGate_SpotPlaceOrder
 
-<a id="opIdFutureTrade_FuturePlaceOrder"></a>
+<a id="opIdExGate_SpotPlaceOrder"></a>
 
 > Code samples
 
@@ -294,7 +303,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.post('/fexgate/v1/{exchange}/order', headers = headers)
+r = requests.post('/v1/{exchange}/order', headers = headers)
 
 print(r.json())
 
@@ -316,7 +325,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "/fexgate/v1/{exchange}/order", data)
+    req, err := http.NewRequest("POST", "/v1/{exchange}/order", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -326,7 +335,7 @@ func main() {
 
 ```
 
-`POST /fexgate/v1/{exchange}/order`
+`POST /v1/{exchange}/order`
 
 > Body parameter
 
@@ -344,17 +353,17 @@ func main() {
 }
 ```
 
-<h3 id="futuretrade_futureplaceorder-parameters">Parameters</h3>
+<h3 id="exgate_spotplaceorder-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|exchange|path|string|true|required 交易所名称|
+|exchange|path|string|true|交易所名称|
 |body|body|object|true|none|
-|» symbol|body|string|true|交易对|
-|» side|body|string|true|交易方向|
-|» type|body|string|true|交易类型|
-|» price|body|string|true|交易价格|
-|» amount|body|string|true|交易数量|
+|» symbol|body|string|false|none|
+|» side|body|string|false|none|
+|» type|body|string|false|none|
+|» price|body|string|false|none|
+|» amount|body|string|false|none|
 |» options|body|object|false|may have part of exchange options is difference, so need this options.|
 |»» **additionalProperties**|body|string|false|none|
 
@@ -364,30 +373,24 @@ func main() {
 
 ```json
 {
-  "clientOrderId": "string",
-  "orderId": "string",
-  "avgPrice": "string",
-  "stopPrice": "string",
-  "priceRate": "string",
-  "priceProtect": true,
-  "status": "string"
+  "order_id": "string"
 }
 ```
 
-<h3 id="futuretrade_futureplaceorder-responses">Responses</h3>
+<h3 id="exgate_spotplaceorder-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A successful response.|[tradePlaceOrderResponse](#schematradeplaceorderresponse)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A successful response.|[exgatev1PlaceOrderResponse](#schemaexgatev1placeorderresponse)|
 |default|Default|An unexpected error response.|[rpcStatus](#schemarpcstatus)|
 
 <aside class="success">
 This operation does not require authentication
 </aside>
 
-## FutureTrade_FutureRecentTradesList
+## ExGate_SpotPendingOrders
 
-<a id="opIdFutureTrade_FutureRecentTradesList"></a>
+<a id="opIdExGate_SpotPendingOrders"></a>
 
 > Code samples
 
@@ -397,7 +400,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('/fexgate/v1/{exchange}/recent_trades/{symbol}', headers = headers)
+r = requests.get('/v1/{exchange}/pending_orders', headers = headers)
 
 print(r.json())
 
@@ -418,7 +421,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "/fexgate/v1/{exchange}/recent_trades/{symbol}", data)
+    req, err := http.NewRequest("GET", "/v1/{exchange}/pending_orders", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -428,16 +431,175 @@ func main() {
 
 ```
 
-`GET /fexgate/v1/{exchange}/recent_trades/{symbol}`
+`GET /v1/{exchange}/pending_orders`
 
-<h3 id="futuretrade_futurerecenttradeslist-parameters">Parameters</h3>
+<h3 id="exgate_spotpendingorders-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|exchange|path|string|true|交易所名称|
+|symbol|query|string|false|交易对名称.|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "orders": [
+    {
+      "order_id": "string",
+      "symbol": "string",
+      "type": "string",
+      "price": "string",
+      "amount": "string",
+      "side": "string"
+    }
+  ]
+}
+```
+
+<h3 id="exgate_spotpendingorders-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A successful response.|[v1PendingOrdersResponse](#schemav1pendingordersresponse)|
+|default|Default|An unexpected error response.|[rpcStatus](#schemarpcstatus)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## ExGate_PullSpotTrade
+
+<a id="opIdExGate_PullSpotTrade"></a>
+
+> Code samples
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+r = requests.get('/v1/{exchange}/pull_trade', headers = headers)
+
+print(r.json())
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "/v1/{exchange}/pull_trade", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+`GET /v1/{exchange}/pull_trade`
+
+*拉取现货逐笔交易，走websocket*
+
+<h3 id="exgate_pullspottrade-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|exchange|path|string|true|交易所名称|
+|symbol|query|string|false|交易对名称.|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "status": "string",
+  "desc": "string"
+}
+```
+
+<h3 id="exgate_pullspottrade-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A successful response.|[v1PullSpotTradeResponse](#schemav1pullspottraderesponse)|
+|default|Default|An unexpected error response.|[rpcStatus](#schemarpcstatus)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## ExGate_GetRecentTradesList
+
+<a id="opIdExGate_GetRecentTradesList"></a>
+
+> Code samples
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+r = requests.get('/v1/{exchange}/recent_trades', headers = headers)
+
+print(r.json())
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "/v1/{exchange}/recent_trades", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+`GET /v1/{exchange}/recent_trades`
+
+<h3 id="exgate_getrecenttradeslist-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |exchange|path|string|true|required 交易所名称|
-|symbol|path|string|true|required 币种|
-|limit|query|string(int64)|false|数据条数.|
+|symbol|query|string|false|required 币种.|
+|limit|query|string(int64)|false|required 分页页码.|
 |isLocal|query|boolean|false|本地.|
+|tolerate_interval|query|string(int64)|false|允许延迟间隔单位:秒.|
 
 > Example responses
 
@@ -458,11 +620,11 @@ func main() {
 }
 ```
 
-<h3 id="futuretrade_futurerecenttradeslist-responses">Responses</h3>
+<h3 id="exgate_getrecenttradeslist-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A successful response.|[tradeRecentTradesListResponse](#schematraderecenttradeslistresponse)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A successful response.|[exgatev1RecentTradesListResponse](#schemaexgatev1recenttradeslistresponse)|
 |default|Default|An unexpected error response.|[rpcStatus](#schemarpcstatus)|
 
 <aside class="success">
@@ -471,24 +633,21 @@ This operation does not require authentication
 
 # Schemas
 
-<h2 id="tocS_BalanceResponseBalance">BalanceResponseBalance</h2>
+<h2 id="tocS_PendingOrdersResponseOrder">PendingOrdersResponseOrder</h2>
 <!-- backwards compatibility -->
-<a id="schemabalanceresponsebalance"></a>
-<a id="schema_BalanceResponseBalance"></a>
-<a id="tocSbalanceresponsebalance"></a>
-<a id="tocsbalanceresponsebalance"></a>
+<a id="schemapendingordersresponseorder"></a>
+<a id="schema_PendingOrdersResponseOrder"></a>
+<a id="tocSpendingordersresponseorder"></a>
+<a id="tocspendingordersresponseorder"></a>
 
 ```json
 {
-  "accountAlias": "string",
-  "asset": "string",
-  "balance": "string",
-  "crossWalletBalance": "string",
-  "crossUnPnl": "string",
-  "availableBalance": "string",
-  "maxWithdrawAmount": "string",
-  "marginAvailable": true,
-  "updateTime": 0
+  "order_id": "string",
+  "symbol": "string",
+  "type": "string",
+  "price": "string",
+  "amount": "string",
+  "side": "string"
 }
 
 ```
@@ -497,22 +656,83 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|accountAlias|string|false|none|none|
-|asset|string|false|none|none|
-|balance|string|false|none|none|
-|crossWalletBalance|string|false|none|none|
-|crossUnPnl|string|false|none|none|
-|availableBalance|string|false|none|none|
-|maxWithdrawAmount|string|false|none|none|
-|marginAvailable|boolean|false|none|none|
-|updateTime|number(double)|false|none|none|
+|order_id|string|false|none|none|
+|symbol|string|false|none|none|
+|type|string|false|none|none|
+|price|string|false|none|none|
+|amount|string|false|none|none|
+|side|string|false|none|none|
 
-<h2 id="tocS_DepthResponseBidList">DepthResponseBidList</h2>
+<h2 id="tocS_exgatev1CancelOrderResponse">exgatev1CancelOrderResponse</h2>
 <!-- backwards compatibility -->
-<a id="schemadepthresponsebidlist"></a>
-<a id="schema_DepthResponseBidList"></a>
-<a id="tocSdepthresponsebidlist"></a>
-<a id="tocsdepthresponsebidlist"></a>
+<a id="schemaexgatev1cancelorderresponse"></a>
+<a id="schema_exgatev1CancelOrderResponse"></a>
+<a id="tocSexgatev1cancelorderresponse"></a>
+<a id="tocsexgatev1cancelorderresponse"></a>
+
+```json
+{
+  "status": "string"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|status|string|false|none|none|
+
+<h2 id="tocS_exgatev1DepthResponse">exgatev1DepthResponse</h2>
+<!-- backwards compatibility -->
+<a id="schemaexgatev1depthresponse"></a>
+<a id="schema_exgatev1DepthResponse"></a>
+<a id="tocSexgatev1depthresponse"></a>
+<a id="tocsexgatev1depthresponse"></a>
+
+```json
+{
+  "lastUpdateId": 0,
+  "timeStamp": 0,
+  "bid_list": [
+    {
+      "bid": [
+        {
+          "price": "string",
+          "amount": "string"
+        }
+      ]
+    }
+  ],
+  "ask_list": [
+    {
+      "bid": [
+        {
+          "price": "string",
+          "amount": "string"
+        }
+      ]
+    }
+  ]
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|lastUpdateId|number(double)|false|none|none|
+|timeStamp|number(double)|false|none|none|
+|bid_list|[[exgatev1DepthResponseBidList](#schemaexgatev1depthresponsebidlist)]|false|none|none|
+|ask_list|[[exgatev1DepthResponseBidList](#schemaexgatev1depthresponsebidlist)]|false|none|none|
+
+<h2 id="tocS_exgatev1DepthResponseBidList">exgatev1DepthResponseBidList</h2>
+<!-- backwards compatibility -->
+<a id="schemaexgatev1depthresponsebidlist"></a>
+<a id="schema_exgatev1DepthResponseBidList"></a>
+<a id="tocSexgatev1depthresponsebidlist"></a>
+<a id="tocsexgatev1depthresponsebidlist"></a>
 
 ```json
 {
@@ -532,14 +752,14 @@ bill_list
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|bid|[[DepthResponsebills](#schemadepthresponsebills)]|false|none|none|
+|bid|[[exgatev1DepthResponsebills](#schemaexgatev1depthresponsebills)]|false|none|none|
 
-<h2 id="tocS_DepthResponsebills">DepthResponsebills</h2>
+<h2 id="tocS_exgatev1DepthResponsebills">exgatev1DepthResponsebills</h2>
 <!-- backwards compatibility -->
-<a id="schemadepthresponsebills"></a>
-<a id="schema_DepthResponsebills"></a>
-<a id="tocSdepthresponsebills"></a>
-<a id="tocsdepthresponsebills"></a>
+<a id="schemaexgatev1depthresponsebills"></a>
+<a id="schema_exgatev1DepthResponsebills"></a>
+<a id="tocSexgatev1depthresponsebills"></a>
+<a id="tocsexgatev1depthresponsebills"></a>
 
 ```json
 {
@@ -556,12 +776,61 @@ bill_list
 |price|string|false|none|none|
 |amount|string|false|none|none|
 
-<h2 id="tocS_RecentTradesListResponseRecentTradesList">RecentTradesListResponseRecentTradesList</h2>
+<h2 id="tocS_exgatev1PlaceOrderResponse">exgatev1PlaceOrderResponse</h2>
 <!-- backwards compatibility -->
-<a id="schemarecenttradeslistresponserecenttradeslist"></a>
-<a id="schema_RecentTradesListResponseRecentTradesList"></a>
-<a id="tocSrecenttradeslistresponserecenttradeslist"></a>
-<a id="tocsrecenttradeslistresponserecenttradeslist"></a>
+<a id="schemaexgatev1placeorderresponse"></a>
+<a id="schema_exgatev1PlaceOrderResponse"></a>
+<a id="tocSexgatev1placeorderresponse"></a>
+<a id="tocsexgatev1placeorderresponse"></a>
+
+```json
+{
+  "order_id": "string"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|order_id|string|false|none|none|
+
+<h2 id="tocS_exgatev1RecentTradesListResponse">exgatev1RecentTradesListResponse</h2>
+<!-- backwards compatibility -->
+<a id="schemaexgatev1recenttradeslistresponse"></a>
+<a id="schema_exgatev1RecentTradesListResponse"></a>
+<a id="tocSexgatev1recenttradeslistresponse"></a>
+<a id="tocsexgatev1recenttradeslistresponse"></a>
+
+```json
+{
+  "trades": [
+    {
+      "id": 0,
+      "price": "string",
+      "qty": "string",
+      "quoteQty": "string",
+      "time": 0,
+      "isBuyerMaker": true
+    }
+  ]
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|trades|[[exgatev1RecentTradesListResponseRecentTradesList](#schemaexgatev1recenttradeslistresponserecenttradeslist)]|false|none|none|
+
+<h2 id="tocS_exgatev1RecentTradesListResponseRecentTradesList">exgatev1RecentTradesListResponseRecentTradesList</h2>
+<!-- backwards compatibility -->
+<a id="schemaexgatev1recenttradeslistresponserecenttradeslist"></a>
+<a id="schema_exgatev1RecentTradesListResponseRecentTradesList"></a>
+<a id="tocSexgatev1recenttradeslistresponserecenttradeslist"></a>
+<a id="tocsexgatev1recenttradeslistresponserecenttradeslist"></a>
 
 ```json
 {
@@ -637,26 +906,20 @@ bill_list
 |message|string|false|none|none|
 |details|[[protobufAny](#schemaprotobufany)]|false|none|none|
 
-<h2 id="tocS_tradeBalanceResponse">tradeBalanceResponse</h2>
+<h2 id="tocS_v1BalancesResponse">v1BalancesResponse</h2>
 <!-- backwards compatibility -->
-<a id="schematradebalanceresponse"></a>
-<a id="schema_tradeBalanceResponse"></a>
-<a id="tocStradebalanceresponse"></a>
-<a id="tocstradebalanceresponse"></a>
+<a id="schemav1balancesresponse"></a>
+<a id="schema_v1BalancesResponse"></a>
+<a id="tocSv1balancesresponse"></a>
+<a id="tocsv1balancesresponse"></a>
 
 ```json
 {
   "balances": [
     {
-      "accountAlias": "string",
       "asset": "string",
-      "balance": "string",
-      "crossWalletBalance": "string",
-      "crossUnPnl": "string",
-      "availableBalance": "string",
-      "maxWithdrawAmount": "string",
-      "marginAvailable": true,
-      "updateTime": 0
+      "available": "string",
+      "frozen": "string"
     }
   ]
 }
@@ -667,22 +930,20 @@ bill_list
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|balances|[[BalanceResponseBalance](#schemabalanceresponsebalance)]|false|none|none|
+|balances|[[v1BalancesResponseBalance](#schemav1balancesresponsebalance)]|false|none|none|
 
-<h2 id="tocS_tradeCancelOrderResponse">tradeCancelOrderResponse</h2>
+<h2 id="tocS_v1BalancesResponseBalance">v1BalancesResponseBalance</h2>
 <!-- backwards compatibility -->
-<a id="schematradecancelorderresponse"></a>
-<a id="schema_tradeCancelOrderResponse"></a>
-<a id="tocStradecancelorderresponse"></a>
-<a id="tocstradecancelorderresponse"></a>
+<a id="schemav1balancesresponsebalance"></a>
+<a id="schema_v1BalancesResponseBalance"></a>
+<a id="tocSv1balancesresponsebalance"></a>
+<a id="tocsv1balancesresponsebalance"></a>
 
 ```json
 {
-  "cumqty": "string",
-  "origqty": "string",
-  "side": "string",
-  "status": "string",
-  "price": "string"
+  "asset": "string",
+  "available": "string",
+  "frozen": "string"
 }
 
 ```
@@ -691,105 +952,27 @@ bill_list
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|cumqty|string|false|none|none|
-|origqty|string|false|none|none|
-|side|string|false|none|none|
-|status|string|false|none|none|
-|price|string|false|none|none|
+|asset|string|false|none|none|
+|available|string|false|none|none|
+|frozen|string|false|none|none|
 
-<h2 id="tocS_tradeDepthResponse">tradeDepthResponse</h2>
+<h2 id="tocS_v1PendingOrdersResponse">v1PendingOrdersResponse</h2>
 <!-- backwards compatibility -->
-<a id="schematradedepthresponse"></a>
-<a id="schema_tradeDepthResponse"></a>
-<a id="tocStradedepthresponse"></a>
-<a id="tocstradedepthresponse"></a>
+<a id="schemav1pendingordersresponse"></a>
+<a id="schema_v1PendingOrdersResponse"></a>
+<a id="tocSv1pendingordersresponse"></a>
+<a id="tocsv1pendingordersresponse"></a>
 
 ```json
 {
-  "lastUpdateId": 0,
-  "timeStamp": 0,
-  "bid_list": [
+  "orders": [
     {
-      "bid": [
-        {
-          "price": "string",
-          "amount": "string"
-        }
-      ]
-    }
-  ],
-  "ask_list": [
-    {
-      "bid": [
-        {
-          "price": "string",
-          "amount": "string"
-        }
-      ]
-    }
-  ]
-}
-
-```
-
-### Properties
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|lastUpdateId|number(double)|false|none|none|
-|timeStamp|number(double)|false|none|none|
-|bid_list|[[DepthResponseBidList](#schemadepthresponsebidlist)]|false|none|none|
-|ask_list|[[DepthResponseBidList](#schemadepthresponsebidlist)]|false|none|none|
-
-<h2 id="tocS_tradePlaceOrderResponse">tradePlaceOrderResponse</h2>
-<!-- backwards compatibility -->
-<a id="schematradeplaceorderresponse"></a>
-<a id="schema_tradePlaceOrderResponse"></a>
-<a id="tocStradeplaceorderresponse"></a>
-<a id="tocstradeplaceorderresponse"></a>
-
-```json
-{
-  "clientOrderId": "string",
-  "orderId": "string",
-  "avgPrice": "string",
-  "stopPrice": "string",
-  "priceRate": "string",
-  "priceProtect": true,
-  "status": "string"
-}
-
-```
-
-### Properties
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|clientOrderId|string|false|none|none|
-|orderId|string(int64)|false|none|none|
-|avgPrice|string|false|none|none|
-|stopPrice|string|false|none|none|
-|priceRate|string|false|none|none|
-|priceProtect|boolean|false|none|none|
-|status|string|false|none|none|
-
-<h2 id="tocS_tradeRecentTradesListResponse">tradeRecentTradesListResponse</h2>
-<!-- backwards compatibility -->
-<a id="schematraderecenttradeslistresponse"></a>
-<a id="schema_tradeRecentTradesListResponse"></a>
-<a id="tocStraderecenttradeslistresponse"></a>
-<a id="tocstraderecenttradeslistresponse"></a>
-
-```json
-{
-  "trades": [
-    {
-      "id": 0,
+      "order_id": "string",
+      "symbol": "string",
+      "type": "string",
       "price": "string",
-      "qty": "string",
-      "quoteQty": "string",
-      "time": 0,
-      "isBuyerMaker": true
+      "amount": "string",
+      "side": "string"
     }
   ]
 }
@@ -800,5 +983,27 @@ bill_list
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|trades|[[RecentTradesListResponseRecentTradesList](#schemarecenttradeslistresponserecenttradeslist)]|false|none|none|
+|orders|[[PendingOrdersResponseOrder](#schemapendingordersresponseorder)]|false|none|none|
+
+<h2 id="tocS_v1PullSpotTradeResponse">v1PullSpotTradeResponse</h2>
+<!-- backwards compatibility -->
+<a id="schemav1pullspottraderesponse"></a>
+<a id="schema_v1PullSpotTradeResponse"></a>
+<a id="tocSv1pullspottraderesponse"></a>
+<a id="tocsv1pullspottraderesponse"></a>
+
+```json
+{
+  "status": "string",
+  "desc": "string"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|status|string|false|none|none|
+|desc|string|false|none|none|
 

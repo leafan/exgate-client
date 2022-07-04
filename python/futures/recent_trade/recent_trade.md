@@ -1,3 +1,15 @@
+```
+
+<h3 id="universal_depth-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A successful response.|[v1universalDepthResponse](#schemav1universaldepthresponse)|
+|default|Default|An unexpected error response.|[rpcStatus](#schemarpcstatus)|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
 
 ## Universal_RecentTradesList
 
@@ -11,7 +23,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('/exgate/v1/{exchange}/get_recent_trades/{symbol}', headers = headers)
+r = requests.get('/v1/{exchange}/get_recent_trades/{symbol}', headers = headers)
 
 print(r.json())
 
@@ -32,7 +44,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "/exgate/v1/{exchange}/get_recent_trades/{symbol}", data)
+    req, err := http.NewRequest("GET", "/v1/{exchange}/get_recent_trades/{symbol}", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -42,7 +54,7 @@ func main() {
 
 ```
 
-`GET /exgate/v1/{exchange}/get_recent_trades/{symbol}`
+`GET /v1/{exchange}/get_recent_trades/{symbol}`
 
 <h3 id="universal_recenttradeslist-parameters">Parameters</h3>
 
@@ -76,7 +88,7 @@ func main() {
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A successful response.|[universalRecentTradesListResponse](#schemauniversalrecenttradeslistresponse)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|A successful response.|[v1universalRecentTradesListResponse](#schemav1universalrecenttradeslistresponse)|
 |default|Default|An unexpected error response.|[rpcStatus](#schemarpcstatus)|
 
 <aside class="success">

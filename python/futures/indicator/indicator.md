@@ -31,7 +31,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('/fexgate/v1/{exchange}/kline/historical/madc/{symbol}/{interval}/{start_time}/{end_time}/{periodFast}/{periodSlow}/{signal}', headers = headers)
+r = requests.get('/v1/{exchange}/kline/historical/madc/{symbol}/{interval}/{start_time}/{end_time}/{periodFast}/{periodSlow}/{signal}/{limit}', headers = headers)
 
 print(r.json())
 
@@ -52,7 +52,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "/fexgate/v1/{exchange}/kline/historical/madc/{symbol}/{interval}/{start_time}/{end_time}/{periodFast}/{periodSlow}/{signal}", data)
+    req, err := http.NewRequest("GET", "/v1/{exchange}/kline/historical/madc/{symbol}/{interval}/{start_time}/{end_time}/{periodFast}/{periodSlow}/{signal}/{limit}", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -62,7 +62,7 @@ func main() {
 
 ```
 
-`GET /fexgate/v1/{exchange}/kline/historical/madc/{symbol}/{interval}/{start_time}/{end_time}/{periodFast}/{periodSlow}/{signal}`
+`GET /v1/{exchange}/kline/historical/madc/{symbol}/{interval}/{start_time}/{end_time}/{periodFast}/{periodSlow}/{signal}/{limit}`
 
 <h3 id="indicators_gethistoricalmadc-parameters">Parameters</h3>
 
@@ -76,7 +76,7 @@ func main() {
 |periodFast|path|string(int64)|true|required，fast信号周期|
 |periodSlow|path|string(int64)|true|required，slow信号周期|
 |signal|path|string(int64)|true|required，signal信号周期|
-|limit|query|string(int64)|false|返回数据条数.|
+|limit|path|string(int64)|true|required,返回数据条数|
 |isProxy|query|boolean|false|是否使用代理,走http，或者local，默认为false.|
 
 > Example responses
@@ -119,7 +119,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('/fexgate/v1/{exchange}/kline/historical/rsi/{symbol}/{interval}/{period}/{start_time}/{end_time}', headers = headers)
+r = requests.get('/v1/{exchange}/kline/historical/rsi/{symbol}/{interval}/{period}/{start_time}/{end_time}/{limit}', headers = headers)
 
 print(r.json())
 
@@ -140,7 +140,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "/fexgate/v1/{exchange}/kline/historical/rsi/{symbol}/{interval}/{period}/{start_time}/{end_time}", data)
+    req, err := http.NewRequest("GET", "/v1/{exchange}/kline/historical/rsi/{symbol}/{interval}/{period}/{start_time}/{end_time}/{limit}", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -150,7 +150,7 @@ func main() {
 
 ```
 
-`GET /fexgate/v1/{exchange}/kline/historical/rsi/{symbol}/{interval}/{period}/{start_time}/{end_time}`
+`GET /v1/{exchange}/kline/historical/rsi/{symbol}/{interval}/{period}/{start_time}/{end_time}/{limit}`
 
 <h3 id="indicators_gethistoricalrsi-parameters">Parameters</h3>
 
@@ -162,7 +162,7 @@ func main() {
 |period|path|string(int64)|true|required，信号周期|
 |start_time|path|string(int64)|true|required，开始时间戳|
 |end_time|path|string(int64)|true|required，结束时间戳|
-|limit|query|string(int64)|false|返回数据条数.|
+|limit|path|string(int64)|true|required,返回数据条数|
 |isProxy|query|boolean|false|是否使用代理,走http，或者local，默认为false.|
 
 > Example responses
@@ -203,7 +203,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('/fexgate/v1/{exchange}/kline/madc/{symbol}/{interval}/{periodFast}/{periodSlow}/{signal}', headers = headers)
+r = requests.get('/v1/{exchange}/kline/madc/{symbol}/{interval}/{periodFast}/{periodSlow}/{signal}/{limit}', headers = headers)
 
 print(r.json())
 
@@ -224,7 +224,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "/fexgate/v1/{exchange}/kline/madc/{symbol}/{interval}/{periodFast}/{periodSlow}/{signal}", data)
+    req, err := http.NewRequest("GET", "/v1/{exchange}/kline/madc/{symbol}/{interval}/{periodFast}/{periodSlow}/{signal}/{limit}", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -234,7 +234,7 @@ func main() {
 
 ```
 
-`GET /fexgate/v1/{exchange}/kline/madc/{symbol}/{interval}/{periodFast}/{periodSlow}/{signal}`
+`GET /v1/{exchange}/kline/madc/{symbol}/{interval}/{periodFast}/{periodSlow}/{signal}/{limit}`
 
 <h3 id="indicators_getrecentmadc-parameters">Parameters</h3>
 
@@ -246,7 +246,7 @@ func main() {
 |periodFast|path|string(int64)|true|required，快速移动平均线周期|
 |periodSlow|path|string(int64)|true|required，慢速移动平均线周期|
 |signal|path|string(int64)|true|required，信号周期|
-|limit|query|string(int64)|false|返回数据条数.|
+|limit|path|string(int64)|true|required ,返回数据条数|
 |isProxy|query|boolean|false|是否使用代理,走http，或者local，默认为false.|
 
 > Example responses
@@ -289,7 +289,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('/fexgate/v1/{exchange}/kline/rsi/{symbol}/{interval}/{period}', headers = headers)
+r = requests.get('/v1/{exchange}/kline/rsi/{symbol}/{interval}/{period}/{limit}', headers = headers)
 
 print(r.json())
 
@@ -310,7 +310,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "/fexgate/v1/{exchange}/kline/rsi/{symbol}/{interval}/{period}", data)
+    req, err := http.NewRequest("GET", "/v1/{exchange}/kline/rsi/{symbol}/{interval}/{period}/{limit}", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -320,7 +320,7 @@ func main() {
 
 ```
 
-`GET /fexgate/v1/{exchange}/kline/rsi/{symbol}/{interval}/{period}`
+`GET /v1/{exchange}/kline/rsi/{symbol}/{interval}/{period}/{limit}`
 
 <h3 id="indicators_getrecentrsi-parameters">Parameters</h3>
 
@@ -330,7 +330,7 @@ func main() {
 |symbol|path|string|true|required，交易对名称|
 |interval|path|string|true|required，时间周期，可选值：1min, 5min, 15min, 30min, 1hour, 1day|
 |period|path|string(int64)|true|required，信号周期|
-|limit|query|string(int64)|false|返回数据条数.|
+|limit|path|string(int64)|true|required 返回数据条数|
 |isProxy|query|boolean|false|是否使用代理,走http，或者local，默认为false.|
 
 > Example responses

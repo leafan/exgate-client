@@ -16,7 +16,7 @@
     "application/json"
   ],
   "paths": {
-    "/fexgate/v1/{exchange}/balance": {
+    "/v1/{exchange}/balance": {
       "get": {
         "operationId": "FutureTrade_FutureBalance",
         "responses": {
@@ -47,14 +47,14 @@
         ]
       }
     },
-    "/fexgate/v1/{exchange}/cancel": {
+    "/v1/{exchange}/cancel": {
       "delete": {
         "operationId": "FutureTrade_FutureCancelOrder",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/tradeCancelOrderResponse"
+              "$ref": "#/definitions/v1tradeCancelOrderResponse"
             }
           },
           "default": {
@@ -99,14 +99,14 @@
         ]
       }
     },
-    "/fexgate/v1/{exchange}/depth/{symbol}/{limit}": {
+    "/v1/{exchange}/depth/{symbol}": {
       "get": {
         "operationId": "FutureTrade_FutureDepth",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/tradeDepthResponse"
+              "$ref": "#/definitions/v1tradeDepthResponse"
             }
           },
           "default": {
@@ -133,9 +133,9 @@
           },
           {
             "name": "limit",
-            "description": "数量",
-            "in": "path",
-            "required": true,
+            "description": "默认 500; 可选值:[5, 10, 20, 50, 100, 500, 1000].",
+            "in": "query",
+            "required": false,
             "type": "string",
             "format": "int64"
           },
@@ -160,14 +160,14 @@
         ]
       }
     },
-    "/fexgate/v1/{exchange}/order": {
+    "/v1/{exchange}/order": {
       "post": {
         "operationId": "FutureTrade_FuturePlaceOrder",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/tradePlaceOrderResponse"
+              "$ref": "#/definitions/v1tradePlaceOrderResponse"
             }
           },
           "default": {
@@ -228,14 +228,14 @@
         ]
       }
     },
-    "/fexgate/v1/{exchange}/recent_trades/{symbol}": {
+    "/v1/{exchange}/recent_trades/{symbol}": {
       "get": {
         "operationId": "FutureTrade_FutureRecentTradesList",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/tradeRecentTradesListResponse"
+              "$ref": "#/definitions/v1tradeRecentTradesListResponse"
             }
           },
           "default": {
@@ -262,7 +262,7 @@
           },
           {
             "name": "limit",
-            "description": "数据条数.",
+            "description": "默认:500，最大1000.",
             "in": "query",
             "required": false,
             "type": "string",
@@ -283,7 +283,49 @@
     }
   },
   "definitions": {
-    "BalanceResponseBalance": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "type_url": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "tradeBalanceResponse": {
+      "type": "object",
+      "properties": {
+        "balances": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/tradeBalanceResponseBalance"
+          },
+          "title": "账户余额"
+        }
+      }
+    },
+    "tradeBalanceResponseBalance": {
       "type": "object",
       "properties": {
         "accountAlias": {
@@ -325,106 +367,7 @@
         }
       }
     },
-    "DepthResponseBidList": {
-      "type": "object",
-      "properties": {
-        "bid": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/DepthResponsebills"
-          },
-          "title": "bills"
-        }
-      },
-      "title": "bill_list"
-    },
-    "DepthResponsebills": {
-      "type": "object",
-      "properties": {
-        "price": {
-          "type": "string",
-          "title": "价格"
-        },
-        "amount": {
-          "type": "string",
-          "title": "数量"
-        }
-      }
-    },
-    "RecentTradesListResponseRecentTradesList": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "number",
-          "format": "double",
-          "title": "交易id"
-        },
-        "price": {
-          "type": "string",
-          "title": "价格"
-        },
-        "qty": {
-          "type": "string",
-          "title": "数量"
-        },
-        "quoteQty": {
-          "type": "string",
-          "title": "报价数量"
-        },
-        "time": {
-          "type": "number",
-          "format": "double",
-          "title": "时间"
-        },
-        "isBuyerMaker": {
-          "type": "boolean",
-          "title": "是否是买家"
-        }
-      }
-    },
-    "protobufAny": {
-      "type": "object",
-      "properties": {
-        "type_url": {
-          "type": "string"
-        },
-        "value": {
-          "type": "string",
-          "format": "byte"
-        }
-      }
-    },
-    "rpcStatus": {
-      "type": "object",
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "message": {
-          "type": "string"
-        },
-        "details": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/protobufAny"
-          }
-        }
-      }
-    },
-    "tradeBalanceResponse": {
-      "type": "object",
-      "properties": {
-        "balances": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/BalanceResponseBalance"
-          },
-          "title": "账户余额"
-        }
-      }
-    },
-    "tradeCancelOrderResponse": {
+    "v1tradeCancelOrderResponse": {
       "type": "object",
       "properties": {
         "cumqty": {
@@ -449,7 +392,7 @@
         }
       }
     },
-    "tradeDepthResponse": {
+    "v1tradeDepthResponse": {
       "type": "object",
       "properties": {
         "lastUpdateId": {
@@ -465,20 +408,46 @@
         "bid_list": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/DepthResponseBidList"
+            "$ref": "#/definitions/v1tradeDepthResponseBidList"
           },
           "title": "买单"
         },
         "ask_list": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/DepthResponseBidList"
+            "$ref": "#/definitions/v1tradeDepthResponseBidList"
           },
           "title": "卖单"
         }
       }
     },
-    "tradePlaceOrderResponse": {
+    "v1tradeDepthResponseBidList": {
+      "type": "object",
+      "properties": {
+        "bid": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1tradeDepthResponsebills"
+          },
+          "title": "bills"
+        }
+      },
+      "title": "bill_list"
+    },
+    "v1tradeDepthResponsebills": {
+      "type": "object",
+      "properties": {
+        "price": {
+          "type": "string",
+          "title": "价格"
+        },
+        "amount": {
+          "type": "string",
+          "title": "数量"
+        }
+      }
+    },
+    "v1tradePlaceOrderResponse": {
       "type": "object",
       "properties": {
         "clientOrderId": {
@@ -512,14 +481,45 @@
         }
       }
     },
-    "tradeRecentTradesListResponse": {
+    "v1tradeRecentTradesListResponse": {
       "type": "object",
       "properties": {
         "trades": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/RecentTradesListResponseRecentTradesList"
+            "$ref": "#/definitions/v1tradeRecentTradesListResponseRecentTradesList"
           }
+        }
+      }
+    },
+    "v1tradeRecentTradesListResponseRecentTradesList": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "format": "double",
+          "title": "交易id"
+        },
+        "price": {
+          "type": "string",
+          "title": "价格"
+        },
+        "qty": {
+          "type": "string",
+          "title": "数量"
+        },
+        "quoteQty": {
+          "type": "string",
+          "title": "报价数量"
+        },
+        "time": {
+          "type": "number",
+          "format": "double",
+          "title": "时间"
+        },
+        "isBuyerMaker": {
+          "type": "boolean",
+          "title": "是否是买家"
         }
       }
     }
