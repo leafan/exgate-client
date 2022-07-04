@@ -1,7 +1,7 @@
 import requests
 import json
 domain = "http://exgate.leafan.cc/api/"
-url = domain+"/fexgate/v1/fbinance/order"
+url = domain+"v1/fbinance/order"
 
 apiKey = ""
 apiSecret = ""

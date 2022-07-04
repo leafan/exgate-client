@@ -1,7 +1,6 @@
 import requests
 
-url = "http://127.0.0.1:8000/fexgate/v1/fbinance/balance"
-
+url = "http://exgate.leafan.cc/api/v1/fbinance/balance"
 
 apiKey = ""
 apiSecret = ""

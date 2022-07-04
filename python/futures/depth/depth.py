@@ -1,6 +1,6 @@
 import requests
 
-url = "http://127.0.0.1:8000/fexgate/v1/fbinance/depth?symbol=BTCUSDT&limit=5&isLocal=false&tolerate_interval=1"
+url = "http://exgate.leafan.cc/api/v1/fbinance/depth?symbol=BTCUSDT&limit=5&isLocal=false&tolerate_interval=1"
 
 payload = {}
 headers = {}
